@@ -1,0 +1,160 @@
+\ProvidesFile{these_macros.sty}
+\ProvidesPackage{these_macros}
+
+%%%
+%%% Quelques extensions
+%%%
+
+%%% (incompatibilité avec Ipe)
+%%%\RequirePackage{color}
+%%%  \definecolor{grey}{rgb}{0.745,0.745,0.745}
+%%%  %\RequirePackage{xcolor}
+
+\RequirePackage{xcomment}
+%  \let\cbstart\relax\let\cbend\relax
+%\RequirePackage{mymaj}
+
+\usepackage{array,hhline}
+\usepackage{url}
+\usepackage{graphicx,subfigure,caption}
+\providecommand{\Ipe}[1]{\def\IPEfile{#1}\input{#1}}
+\RequirePackage{amsmath,amssymb,dsfont}
+%\RequirePackage[all,poly]{xy}
+\RequirePackage[all,poly,dvips]{xy}
+\RequirePackage[dvips,rightbars]{changebar}
+\RequirePackage[french]{babel}\usersfrenchoptions{}
+\RequirePackage[98.2]{abreviations}
+\RequirePackage[98.2,numero]{theo}
+\RequirePackage{fleches}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
+%% Quelques commandes simples
+%%
+\DeclareMathOperator{\re}{Re}
+\let\ob\relax\DeclareMathOperator{\ob}{Ob}
+\let\fl\relax\DeclareMathOperator{\fl}{Fl}
+\def\Sn{\mathfrak {S}_n}
+\DeclareMathOperator{\pr}{pr}
+\newcommand{\M}          {\mathscr{M}}
+\newcommand{\T}          {\mathscr{T}}
+\newcommand{\SLC} [1][\T]{\operatorname{SLC}#1}
+\newcommand{\SLCF}[1][\T]{\operatorname{SLCF}#1}
+\newcommand{\LC}  [1][\T]{\operatorname{LC}(#1,R)}
+\newcommand{\LCF} [1][\T]{\operatorname{LCF}(#1,R)}
+\newcommand{\proobj}{\mathop{{\text{``}}\,{\limpro}{\text{''}}}}
+\newcommand{\indobj}{\mathop{{\text{``}}\,{\limind}{\text{''}}}}
+\DeclareMathOperator{\sk}{Sk}
+\DeclareMathOperator{\cosk}{Cosk}
+\DeclareMathOperator{\isom}{Isom}
+\DeclareMathOperator{\pro}{Pro}
+\def\groupoides{\cat{Groupoides}}
+\def\Mgn{\mathscr{M}_{g,n}}
+\def\Mgnb{\bar{\mathscr{M}}_{g,n}}
+\let\Mbgn\Mgnb
+\def\Mb{\bar{\mathscr{M}}}
+\def\Sgn{\mathscr{S}_{\!g,n}}
+\def\Tgn{\mathscr{T}_{g,n}}
+\def\Mgno{\mathscr{M}^\circ_{g,n}}
+\def\Mgno{\mathscr{M}_{g,n}}
+\let\Mogn\Mgno
+\def\M{\mathscr{M}}
+%\def\Mo{\mathscr{M}^\circ}
+\let\Mo\M
+\def\etale{_{\textrm{\textup{étale}}}}
+
+%% Xy-Pic (voir aussi fleches.sty)
+
+\makeatother %%%%%%%%%%%%%%%%%%%%%%%%%ùù
+
+\def\cartesien{%
+  \ar@{-}[]+R+<5pt,-1pt>;[]+RD+<5pt,-5pt>%
+  \ar@{-}[]+D+<1pt,-5pt>;[]+RD+<5pt,-5pt>%
+}
+\def\cartesien{%
+  \ar@{-}[]+R+<6pt,-2pt>;[]+RD+<6pt,-6pt>%
+  \ar@{-}[]+D+<2pt,-6pt>;[]+RD+<6pt,-6pt>%
+}
+\def\cocartesien{%
+  \ar@{-}[]+L+<-6pt,+2pt>;[]+LU+<-6pt,+6pt>%
+  \ar@{-}[]+U+<-2pt,+6pt>;[]+LU+<-6pt,+6pt>%
+}
+
+\newcommand{\dar}[1][r]{\ar@<+0.3ex>[#1]\ar@<-0.3ex>[#1]}
+\newcommand{\dcar}[1][r]{\ar@/^/[#1]\ar@/_/[#1]}
+
+\makeatletter %%%%%%%%%%%%%%%%%%%%%%
+
+%%
+%% Produit fibré indiquant les morphismes
+%%
+%% A \TIMES{s}{C}{b} B
+%%
+%% A  x  B
+%%   s b
+%%    C
+%%
+\def\TIMES#1#2#3{\mathbin{\mathop{
+      {}_{#1}^{\hphantom{#3}}{\times}{}_{#3}^{\hphantom{#1}}
+      }\limits_{#2}}}
+\def\dtimes{\mathbin{\mathop{\times}\limits^2}}
+\let\OLD@dtimes\dtimes
+\def\DTimes{\@ifnextchar_\dtimesWSB\OLD@dtimes}
+\def\dtimesWSB_#1{\mathbin{\mathop{\OLD@dtimes}\limits_{#1}}}
+
+%%
+%% Définition d'un $2$-foncteur
+%%
+\newcommand{\definedfunctor}[9]{%
+  \ensuremath{
+    \ifvide{#1}{}{#1 :}
+    \left\{
+      \begin{array}{rcl}
+        {\displaystyle #2} & \lra & {\displaystyle #3} \\
+        {\displaystyle #4} & \lmt & {\displaystyle #5} \\
+        {\displaystyle #6} & \lmt & {\displaystyle #7} \\
+        {\displaystyle #8} & \lmt & {\displaystyle #9} \\
+      \end{array}
+    \right.}}
+
+%%
+%% Diagrammes centrés
+%%
+\def\XYMATRIX#1{\raisebox{.5\depth}{\xymatrix{#1}}}
+
+
+%% Fonte utilisée pour les 2-catégories
+\def\dcat#1{\boldsymbol{\mathfrak{#1}}}
+%% Fonte utilisée pour les topos
+\let\topos\mathscr
+%% Fonte utilisée pour les champs (algébriques)
+\let\champ\mathscr
+%% 2-limites projective et inductive
+%\def\vardlim@#1#2{\mathop{\vtop{\ialign{##\crcr
+% \hfil$#1\m@th\operator@font 2\text{-}lim$\hfil\crcr
+% \noalign{\nointerlineskip\kern\ex@}#2#1\crcr
+% \noalign{\nointerlineskip\kern-\ex@}\crcr}}}}
+%\def\dlimind{\mathpalette\vardlim@\rightarrowfill@}
+%\def\dlimpro{\mathpalette\vardlim@\leftarrowfill@}
+
+%% Les 2-morphismes dans les triangles (non)commutatifs
+\def\tria[#1][#2][#3]{
+  \ar@{}[#1];[#2]|*+{}="milieu"
+  \ar@{=>}"milieu";[#3]}
+\def\trib[#1][#2][#3]{
+  \ar@{}[#1];[#2]|*+{}="milieu"
+  \ar@{=>}[#3];"milieu"}
+\let\tri\tria
+
+%% Divers
+\let\d\emph
+
+\let\widecheck\check
+
+%%
+%% Ce n'est pas encore terminé
+%%
+\def\AFAIRE{\textbf{À FAIRE}\xspace}
+
+\endinput

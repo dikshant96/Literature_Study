@@ -1,0 +1,29 @@
+%%%%%%%
+%%
+%%  Usage:
+%%  \begin{equation}
+%%  y=mx+c
+%%  \label{linear} % Equation to be referred to must be labelled
+%%  \end{equation}
+%%  \begin{eqnref}{linear} % Parameter is the label of a numbered equation
+%%  y=mx+c % This should be the same as the equation referred to, but
+%%         % it's up to you
+%%  \end{eqnref}
+%%
+%%%%%%%
+\newsavebox{\eqnumref}
+\newdimen\mathindent
+\AtEndOfClass{\mathindent\leftmargini}
+\newenvironment{eqnref}[1]{%
+  \sbox{\eqnumref}{\hbox{[\ref{#1}}]}
+  \@beginparpenalty\predisplaypenalty
+  \@endparpenalty\postdisplaypenalty
+  \trivlist \item[]\leavevmode
+    \hb@xt@\linewidth\bgroup \hfil$\m@th% $
+      \displaystyle\hskip\mathindent
+}{%
+    $\hfil % $
+    \displaywidth\linewidth\usebox{\eqnumref}
+    \egroup
+  \endtrivlist
+}

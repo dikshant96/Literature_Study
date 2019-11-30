@@ -1,0 +1,301 @@
+%\iffalse
+%
+%esdiff.dtx version 1.1 august 1999
+%Eddie Saudrais (eddie.saudrais@wanadoo.fr)
+%
+%<*driver>
+\documentclass[a4paper]{ltxdoc}
+\usepackage{esdiff}
+\parindent 0cm
+\topmargin -1cm
+\begin{document}
+\DocInput{esdiff.dtx}
+\end{document}
+%</driver>
+%\fi
+%\CheckSum{482}
+%\title{Writing derivatives}
+%\author{Eddie Saudrais}
+%\date{\today}
+%\maketitle
+%\MakeShortVerb{\|}
+%\begin{abstract}
+%This document describes the package \textsf{esdiff} that makes
+%writing derivatives very easy.
+%It allows to write derivatives, partial derivatives, multiple
+%derivatives.
+%Some typographic options are available.
+%The macro about crossed derivatives was given on
+%\texttt{comp.text.tex} by Peter Schmitt.
+%\end{abstract}
+%\section{Derivatives}
+%
+%\DescribeMacro{\diff}
+%
+%Derivatives are obtained with the command \textsf{diff}.
+%
+%To get $\diff{f}{x}$, just write |$\diff{f}{x}$|.
+%
+%The ordre of the derivative can be set in square brackets.
+%So |$\diff[n]{f}{x}$| gives $\diff[n]{f}{x}$.
+%
+%\DescribeMacro{\diff*}
+%
+%It's easy to precise the point where the derivative is calculated:
+%
+% |$\diff*{f}{x}{x_0}$|
+%gives $\diff*{f}{x}{x_0}$.
+%
+%Of course, those two options can be used together:
+%|$\diff*[2]{g}{y}{0}$| gives as expected $\diff*[2]{g}{y}{0}$.
+%
+%\section{Partial derivatives}
+%
+%\DescribeMacro{\diffp}
+%
+%Partial derivatives are obtained with the macro
+%\textsf{diffp}, using the same syntaxe as with \textsf{diff}:
+%a star version to put a subscript, and square brackets to set
+%the order of the derivative according to only one variable.
+%
+%To get $\diffp{f}{x}$, just write
+%|$\diffp{f}{x}$|.
+%
+%We obtain $\diffp[2]{f}{x}$ wrtiting |$\diffp[2]{f}{x}$|.
+%
+%\DescribeMacro{\diffp*}
+%
+%The notation $\diffp*{p}{V}{T}$ is the result of
+%|$\diffp*{p}{V}{T}$|.
+%
+%The notation of crossed derivatives is automatic.
+%To get $\diffp{f}{{x}{y^2}}$, write
+%
+%|$\diffp{f}{{x}{y^2}}$|.
+%This method can be used to write a partial derivative, without
+%square beackets. So |$\diffp{f}{{x^2}}$| gives $\diffp{f}{{x^2}}$.
+%
+%We can mix options:
+% |$\diffp*{f}{{x^2}{y^3}}{z}$|
+%gives $\diffp*{f}{{x^2}{y^3}}{z}$.
+%
+%\section{Options}
+%
+%Several options are available:
+%\begin{itemize}
+%\item
+%by default, derivatives are written in displaystyle on text mode.
+%The \textsf{display} option set this default. With the \textsf{text}
+%option, derivatives are written in textstyle on text mode;
+%\item
+%by default, the \texttt{d} of the derivative is written in roman.
+%Available options are \textsf{roman} and \textsf{italic};
+%\item
+%we can set the space between the \texttt{d} and the symbol of the
+%function or of the variable. By default, this space is null.
+%Available options are \textsf{thin}, \textsf{med} and
+%\textsf{big}. It may be fine to add a space when the \texttt{d}
+%is in italic;
+%\item
+%We can set the space between the $\partial$ and the symbol of the
+%function or of the variable. By default, this space is null.
+%Available options are \textsf{thinp}, \textsf{medp} and
+%\textsf{bigp};
+%\item
+%the space between $\partial x$ and $\partial y$ in crossed derivatives may be too
+%narrow. It is null by default. Available options are
+%\textsf{thinc}, \textsf{medc} and \textsf{bigc};
+%\end{itemize}
+%
+%\section{The code}
+%\StopEventually{}
+%The package presents itself.
+%    \begin{macrocode}
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{esdiff}
+%    \end{macrocode}
+%We set default values for the options.
+%   \begin{macrocode}
+\newcommand{\taille}[1]{\displaystyle{#1}}
+\newcommand{\difint}{\mkern 0mu}
+\newcommand{\derpint}{\mkern 0mu}
+\newcommand{\croisint}{\mkern 0mu}
+%    \end{macrocode}
+%The \textsf{d} is roman by default..
+%    \begin{macrocode}
+\newcommand{\dop}{\mathrm{d}}
+%    \end{macrocode}
+%Options:
+%    \begin{macrocode}
+\DeclareOption{display}{\renewcommand{\taille}[1]{\displaystyle{#1}}}
+\DeclareOption{text}{\renewcommand{\taille}[1]{\textstyle{#1}}}
+\DeclareOption{roman}{\renewcommand{\dop}{\ensuremath{\mathrm{d}}}}
+\DeclareOption{italic}{\renewcommand{\dop}{\ensuremath{d}}}
+\DeclareOption{thin}{\renewcommand{\difint}{\ensuremath{\,}}}
+\DeclareOption{med}{\renewcommand{\difint}{\ensuremath{\;}}}
+\DeclareOption{big}{\renewcommand{\difint}{\ensuremath{\:}}}
+\DeclareOption{thinp}{\renewcommand{\derpint}{\ensuremath{\,}}}
+\DeclareOption{medp}{\renewcommand{\derpint}{\ensuremath{\;}}}
+\DeclareOption{bigp}{\renewcommand{\derpint}{\ensuremath{\:}}}
+\DeclareOption{thinc}{\renewcommand{\croisint}{\ensuremath{\,}}}
+\DeclareOption{medc}{\renewcommand{\croisint}{\ensuremath{\;}}}
+\DeclareOption{bigc}{\renewcommand{\croisint}{\ensuremath{\:}}}
+\ProcessOptions\relax
+%    \end{macrocode}
+%
+%\subsection{Derivative}
+%Test of star version.
+%    \begin{macrocode}
+\def\diff{\@ifstar{\diffstar}{\diffnostar}}
+%    \end{macrocode}
+%Star version. The subscript is given.
+%    \begin{macrocode}
+\def\diffstar{\@ifnextchar[{\@diffstar}{\@@diffstar}}
+%    \end{macrocode}
+%The ordre is given in square brakets, and there is a subscript.
+%    \begin{macrocode}
+\def\@diffstar[#1]#2#3#4{\mathchoice{\left(\frac{\dop^{#1}\difint#2}%
+{\dop\difint#3^{#1}}\right)_{\mkern-7mu#4}}%
+{\taille{\left(\frac{\dop^{#1}\difint#2}%
+{\dop\difint#3^{#1}}\right)_{\mkern-7mu#4}}}%
+{\scriptstyle{\left(\frac{\dop^{#1}\difint#2}%
+{\dop\difint#3^{#1}}\right)_{\mkern-7mu#4}}}%
+{\scriptstyle{\left(\frac{\dop^{#1}\difint#2}%
+{\dop\difint#3^{#1}}\right)_{\mkern-7mu#4}}}}
+%    \end{macrocode}
+%There is only a subscript.
+%    \begin{macrocode}
+\def\@@diffstar#1#2#3{\mathchoice{\left(\frac{\dop\difint#1}%
+{\dop\difint#2}\right)_{\mkern-7mu#3}}%
+{\taille{\left(\frac{\dop\difint#1}{\dop\difint#2}%
+\right)_{\mkern-7mu#3}}}{\scriptstyle{\left(%
+\frac{\dop\difint#1}{\dop\difint#2}\right)%
+_{\mkern-7mu#3}}}%
+{\scriptstyle{\left(\frac{\dop\difint#1}{\dop\difint#2}\right)%
+_{\mkern-7mu#3}}}}
+%    \end{macrocode}
+%
+%No star version (no subscript).
+%    \begin{macrocode}
+\def\diffnostar{\@ifnextchar[{\@diffnostar}{\@@diffnostar}}
+%    \end{macrocode}
+%The ordre is given in square brackets.
+%    \begin{macrocode}
+\def\@diffnostar[#1]#2#3{\mathchoice{\frac{\dop^{#1}\difint#2}%
+{\dop\difint#3^{#1}}}%
+{\taille{\frac{\dop^{#1}\difint#2}{\dop\difint#3^{#1}}}}%
+{\scriptstyle{\frac{\dop^{#1}\difint#2}{\dop\difint#3^{#1}}}}%
+{\scriptstyle{\frac{\dop^{#1}\difint#2}{\dop\difint#3^{#1}}}}}
+%    \end{macrocode}
+%Basic notation.
+%    \begin{macrocode}
+\def\@@diffnostar#1#2{\mathchoice%
+{\frac{\dop\difint#1}{\dop\difint#2}}%
+{\taille{\frac{\dop\difint#1}{\dop\difint#2}}}%
+{\scriptstyle{\frac{\dop\difint#1}{\dop\difint#2}}}%
+{\scriptstyle{\frac{\dop\difint#1}{\dop\difint#2}}}}
+%    \end{macrocode}
+%
+%\subsection{Partial derivatives}
+%Test of the star version.
+%    \begin{macrocode}
+\def\diffp{\@ifstar{\diffpstar}{\diffpnostar}}
+%    \end{macrocode}
+%Star version: a subscript is given.
+%    \begin{macrocode}
+\def\diffpstar{\@ifnextchar[{\@diffpstar}{\@@diffpstar}}
+%    \end{macrocode}
+%Ordre of derivative is given, and there is a subscript.
+%    \begin{macrocode}
+\def\@diffpstar[#1]#2#3#4{\mathchoice{\left(\frac{\partial^{#1}%
+\derpint#2}{\partial\derpint#3^{#1}}\right)_{\mkern-7mu#4}}%
+{\taille{\left(\frac{\partial^{#1}\derpint#2}{\partial\derpint#3^{#1}}%
+\right)_{\mkern-7mu#4}}}%
+{\scriptstyle{\left(\frac{\partial^{#1}\derpint#2}%
+{\partial\derpint#3^{#1}}%
+\right)_{\mkern-7mu#4}}}%
+{\scriptstyle{\left(\frac{\partial^{#1}\derpint#2}%
+{\partial\derpint#3^{#1}}%
+\right)_{\mkern-7mu#4}}}}
+%    \end{macrocode}
+%There is only a subscript.
+%    \begin{macrocode}
+\def\@@diffpstar#1#2#3{\mathchoice{\left({\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}\right)_{\mkern-7mu#3}}%
+            {\taille{\left({\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}\right)_{\mkern-7mu#3}}}%
+            {\scriptstyle{\left({\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}\right)_{\mkern-7mu#3}}}%
+            {\scriptstyle{\left({\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}\right)_{\mkern-7mu#3}}}}
+%    \end{macrocode}
+%
+%No star version (no subscript is given).
+%    \begin{macrocode}
+\def\diffpnostar{\@ifnextchar[{\@diffpnostar}{\@@diffpnostar}}
+%    \end{macrocode}
+%The ordre of derivative is given.
+%    \begin{macrocode}
+\def\@diffpnostar[#1]#2#3{\mathchoice{\frac{\partial^{#1}\derpint#2}%
+{\partial\derpint#3^{#1}}}%
+{\taille{\frac{\partial^{#1}\derpint#2}{\partial\derpint#3^{#1}}}}%
+{\scriptstyle{\frac{\partial^{#1}\derpint#2}{\partial\derpint#3^{#1}}}}%
+{\scriptstyle{\frac{\partial^{#1}\derpint#2}{\partial\derpint#3^{#1}}}}}
+%    \end{macrocode}
+%Basic notation.
+%    \begin{macrocode}
+\def\@@diffpnostar#1#2{\mathchoice{\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}%
+            {\taille{\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}}%
+            {\scriptstyle{\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}}%
+            {\scriptstyle{\begingroup
+            \toks0={}\count0=0
+            \degree #2\degree
+            \frac{\partial\ifnum\count0>1^{\the\count0 }\fi\derpint#1}%
+            {\the\toks0}%
+            \endgroup}}}
+%    \end{macrocode}
+%
+%Macros used for crossed derivatives.
+%    \begin{macrocode}
+\def\degree #1{\ifx #1\degree \expandafter\stopd
+                      \else \expandafter\addd \fi #1^1$#1\addd}
+\def\stopd #1\addd{}
+\def\addd #1^#2#3$#4\addd{\advance\count0 #2
+                          \toks0=\expandafter{\the\toks0%
+                           {\partial\derpint #4}%
+                          \croisint}\degree}
+%</package>
+%    \end{macrocode}
+%\Finale

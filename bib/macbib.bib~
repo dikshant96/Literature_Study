@@ -1,0 +1,285 @@
+%bibliography
+
+@Book{Anderson,
+  AUTHOR     = "Anderson Jr., J.",
+  YEAR       = 2001,
+  TITLE      = "Fundamentals of Aerodynamics",
+  PUBLISHER  = "McGraw Hill",
+}
+
+@Book{Gad,
+  AUTHOR     = "Gad-el-Hak, M.",
+  YEAR       = 2000,
+  TITLE      = "Flow Control; Passive, Active, and Reactive Flow Management",
+  PUBLISHER  = "Cambridge University Press",
+}
+
+@Article{Barret,
+  author =   {Barrett, R. and Farokhi, S.},
+  year =     1996,
+  TITLE =    "{Subsonic Aerodynamics and Performance of a Smart Vortex Generator System}",
+  journal =      "Journal of Aircraft",
+  volume =   33,
+  number =   2,
+}
+
+@Misc{Ashill,
+  author =   {Ashill, P. and Fulker, J. and Hackett, K.},
+  year =     "2002",
+  month =    "17-21 January",
+  TITLE =    "{Studies of flows induced by Sub Boundary layer Vortex Generators (SBVGs)}",
+  note =        "AIAA 2002-0968",
+howpublished = "40th AIAA Aerospace Sciences Meeting \& Exhibit"
+}
+
+@Misc{Ashill01,
+  author =   {Ashill, P. and Fulker, J. and Hackett, K.},
+  year =     "2001",
+  month =    "8-11 January",
+  TITLE =    "{Research at DERA on Sub Boundary Layer Vortex Generators (SBVGs)}",
+  note =        "AIAA 2001-0887",
+howpublished = "39th Aerospace Sciences Meeting and Exhibit"
+}
+
+@Article{Werle,
+  author =   {Werle, M. and Paterson, R. and Presz Jr.,W.},
+  year =     1987,
+  TITLE =    "{Trailing-Edge Separation/Stall Allevation}",
+  journal =      "AIAA Journal",
+  volume =   25,
+  number =   4,
+}
+
+@Misc{century,
+  author =   {www.century-of-flight.net},
+  year =     "2007",
+  month =    "17 October",
+  TITLE =    "{Slotted Wings, Flaps, and High Lift Devices}",
+}
+
+@Misc{nasa,
+  author =   {http://www.nasa.gov},
+  year =     "2007",
+  month =    "17 October",
+  TITLE =    "{Introduction to the Aerodynamics of Flight}",
+  howpublished=  "{http://history.nasa.gov/SP-367/chapt4.htm\#4.2}"
+}
+
+@TechReport{ Soderman,
+  AUTHOR      = {Soderman, P.},
+  YEAR        = 1972,
+  TITLE       = "{Aerodynamic effects of leading-edge serrations on a two-dimentional airfoil}",
+  INSTITUTION = "{NASA Ames Research Center}",
+   note =    "{NASA TM X-2643}"
+}
+
+@Misc{Knepper,
+  author =   {Knepper, A. and Garry, K.},
+  year =     2005,
+  TITLE =    "{A Preliminary Investigation of Trailing edge Serrations in High Lift Systems}",
+  journal =      "Journal of Aircraft",
+  note =        "{AIAA 2005-5261}",
+  howpublished = "{AIAA Fluid Dynamics Conference and Exhibit 6-9 June 2005, Toronto, Ontario Canada}"
+}
+
+@Misc{Gil,
+  author =   {Gilarranz, J. and Traub, L. and Rediniotis, O.},
+  year =     "2002",
+  month =    "14-17 Januari",
+  TITLE =    "{Characterization of a Compact, High-Power Synthetic Jet Actuator for Flow Separation Control}",
+  note =        "AIAA 2002-0127",
+howpublished = "40th AIAA Aerospace Sciences Meeting \& Exhibit"
+}
+
+@ARTICLE{Nishri,
+   author = {{Nishri}, B. and {Wygnanski}, I.},
+    title = "{Effects of Periodic Excitation on Turbulent Flow Separation from a Flap}",
+  journal = {AIAA Journal},
+     year = 1998,
+    month = apr,
+   volume = 36,
+   number = 4,
+    pages = {547-556}
+}
+
+@ARTICLE{Greenblatt,
+   author = {{Greenblatt}, D. and {Wygnanski}, I.},
+    title = "{The control of flow separation by periodic excitation}",
+  journal = {Progress in Aerospace Sciences},
+     year = 2000,
+   volume = 36,
+    pages = {487-545}
+}
+
+@Book{White,
+  AUTHOR     = "White, F.",
+  YEAR       = 2006,
+  TITLE      = "Viscous Fluid Flow",
+  PUBLISHER  = "McGraw-Hill International Edition",
+  EDITION    ="Third"
+ }
+
+@ARTICLE{Elsberry,
+   author = {{Elsberry}, K. and {Loeffler}, J. and {Zhou}, M. and {Wygnanski}, I.},
+    title = "{An experimental study of a boundary layer that is maintained on the verge of separation}",
+  journal = {Journal of Fluid Mechanics},
+     year = 2000,
+   volume = 423,
+    pages = {227-261}
+}
+
+@Misc{Lin,
+  author =   {{Lin}, J.},
+  year =     "1999",
+  month =    "28 June - 1 July",
+  TITLE =    "{Control of Turbulent Boundary-Layer Separation using Micro-Vortex Generators}",
+  note =        "AIAA 99-3404",
+howpublished = "30th AIAA Fluid Dynamics Conference"
+}
+
+@Book{Raffel,
+  AUTHOR     = {{Raffel}, M. and {Willert}, C. and {Wereley}, S. and {Kompenhans}, J.},
+  YEAR       = 2006,
+  TITLE      = "Particle Image Velocimetry, a practical guide",
+  PUBLISHER  = "Springer Berlin Heidelberg",
+  EDITION    ="Second"
+ }
+
+@Book{Green,
+  AUTHOR     = {{Green}, S.},
+  YEAR       = 1996,
+  TITLE      = "Fluid Vortices",
+  PUBLISHER  = "Dordrecht : Kluwer Academic",
+  %EDITION    =" "
+ }
+
+@Book{Nieuwstadt,
+  AUTHOR     = {{Nieuwstadt}, F.},
+  YEAR       = 2008,
+  TITLE      = "Turbulentie",
+  PUBLISHER  = "Epsilon Uitgaven, Utrecht",
+  %EDITION    =" "
+ }
+
+@Book{Scarano,
+  AUTHOR     = {{Scarano}, F.},
+  YEAR       = 2007,
+  TITLE      = "Experimental Aerodynamics",
+  PUBLISHER  = "Delft University of Technology",
+  %EDITION    =" "
+ }
+
+@Misc{TSI,
+  author =   {TSI},
+  year =     2000,
+  TITLE =    "{IFA 300 Constant Temperature Anemometer System - Instruction Manual}",
+}
+
+@Book{Arts,
+ AUTHOR     = {{Arts}, T. and {Boerrigter}, H. and {Buchlin}, J.-M. and {Carnonaro}, M. and {Degrez}, G. and {Denos}, R. and  {Fletcher}, D. and {Olivari}, D. and {Riethmuller}, M. and {Van den Braembussche}, R.},
+  YEAR       = 2001,
+  TITLE      = "Measurement Techniques in Fluid Dynamics",
+  PUBLISHER  = "Von Karman Institute for Fluid Dynamics",
+ }
+
+@MastersThesis{vdJagt,
+  author =   {{Van der Jagt}, M.},
+  year =     2008,
+  TITLE =    "{Separation Postponement by means of Periodic Surface Excitation}",
+  school =   "Delft University of Technology, Faculty of Aerospace Engineering, Chair of Aerodynamics",
+}
+
+@MastersThesis{Artois,
+  author =   {{Artois}, K.},
+  year =     2005,
+  TITLE =    "{Active Separation Control by Periodic Excitation in an Adverse
+ Pressure Gradient, Application of a Mechanical Actuator}",
+  school =   "Delft University of Technology, Faculty of Aerospace Engineering, Chair of Aerodynamics",
+}
+@Misc{TSIcatalog,
+  author =   {TSI},
+  year =     2008,
+  TITLE =    "{TSI Thermal Anemometry Probes}",
+  %journal =     "Journal of Aircraft",
+  %note =        "{AIAA 2005-5261}",
+  %howpublished = "{AIAA Fluid Dynamics Conference and Exhibit 6-9 June 2005, Toronto, Ontario Canada}"
+}
+
+@Misc{Dantec,
+  author =   {http://www.dantecdynamics.com},
+  year =     "2009",
+  month =    "17 March",
+  TITLE =    "{Particle Image Velocimetry measurement principles}",
+}
+
+@Misc{LaVision,
+  author =   {http://www.piv.de},
+  year =     "2009",
+  month =    "18 March",
+  TITLE =    "{PIV Image Evaluation}",
+}
+@Misc{Fluent,
+  author =   {{Fluent Inc.}},
+  year =     2005,
+  TITLE =    "{Fluent 6.2 User's Guide}",
+}
+
+@Misc{Taylor,
+  author = {{Taylor}, H.},
+  year =     1950,
+  TITLE =    "{Summary report on Vortex Generators}",
+  %journal =     "Journal of Aircraft",
+  %note =        "{AIAA 2005-5261}",
+  howpublished = "{United Aircraft Corporation, Research Department}"
+}
+
+@ARTICLE{Lin2,
+   author = {{Lin}, J. and {Howard}, F. and {Selby}, G},
+    title = "{Small Submerged Vortex Generators for Turbulent Flow Separation Control}",
+  journal = {Journal of Spacecraft},
+     year = 1990,
+   volume = 27,
+    number = {5}
+}
+
+@Misc{Elsinga,
+  author = {{Elsinga}, G. and {Schrijer}, F. and {Scarano},F.},
+  year =    2006,
+  TITLE =    "{Laboratory excercise on HWA and PIV measurement techniques}"
+}
+@ARTICLE{Wang,
+   author = {{Wang}, X. and {Tan}, S.},
+    title = "{Near-wake flow characteristics of a circular cylinder close to a wall}",
+  journal = {Journal of Fluids and Structures},
+     year = 2007
+}
+
+@ARTICLE{Cantwell,
+   author = {{Cantwell}, B. and {Coles}, D.},
+    title = "{An experimental study of entrainment and transport in the turbulent near wake of a circular cylinder}",
+  journal = {Journal of Fluid Mechanics},
+     year = 1983,
+   volume = 136
+}
+@MISC{LaVisionCamSpec,
+      AUTHOR = "{http://www.lavision.de/products/cameras /piv\_cameras\_overview.php}",
+      TITLE = "Overview of PIV Camera Models",
+      MONTH = "April",
+      YEAR = {2009}
+}
+
+@Misc{LitStudy,
+  author =   {{Van der Steen}, M.},
+  year =     "2008",
+  TITLE =    "{Opportunities for the research and development of new flow separation control techniques for wings in high-lift configuration}",
+}
+
+@ARTICLE{Balach,
+  author =   {{Bachalandar}, R. and Blakely, D. and Tachie, M. and Putz, G.},
+  year =     2001,
+  TITLE =    "{A Study on Turbulent Boundary Layers on a Smooth Flat Plate in an Open Channel}",
+  journal =     "ASME",
+volum = {123},
+  %note =        "{AIAA 2005-5261}",
+  %howpublished = "{AIAA Fluid Dynamics Conference and Exhibit 6-9 June 2005, Toronto, Ontario Canada}"
+}

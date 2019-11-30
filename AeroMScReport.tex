@@ -1,0 +1,161 @@
+\documentclass[a4paper,11pt,twoside,openright,fleqn]{sty/thesis}
+\setlength{\parskip}{\baselineskip}
+
+%makeindex report2-2v3.nlo -s nomencl.ist -o report2-2v3.nls
+
+%  \nomunit{}
+
+%% Set the font of the main text
+%\renewcommand \sfdefault{cmss} % Load helvetica for sans serif
+%\renewcommand \familydefault{\sfdefault } % Use sans serif by default
+
+%% Use scalable, PostScript Type 1 versions of the Computer Modern fonts.
+%\usepackage{type1cm}
+%% Replace the standard Computer Modern Typewriter font LaTeX uses
+%% for monospace text with the PostScript font Adobe Courier.
+%\usepackage{courier}
+
+%% Redefine the font used for the section headings to
+%% Helvetica-Narrow Bold.
+%\usepackage{sectsty}
+%\allsectionsfont{\usefont{OT1}{pcr}{bc}{n}\selectfont}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set info for thesis
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mscName{Name}
+\mscDate{\today}
+\mscTitle{Title}
+\mscSubTitle{Subtitle}
+\mscKeyWords{}
+\mscBackPicture{}
+\mscReaderOne{Reader 1}
+\mscReaderTwo{Reader 2}
+\mscReaderThree{Reader 3}
+\mscReaderFour{Reader 4}
+
+\setThesisInfo
+
+\usepackage{sty/verticalspaces}
+%\usepackage[notref,color]{showkeys}
+\usepackage{sty/float}
+\usepackage{sty/subfigure}
+\RequirePackage{sty/psfrag}
+\RequirePackage{color}
+\RequirePackage{hhline}
+\usepackage{sty/rotating}
+\usepackage{sty/acronym}
+\usepackage{longtable}
+\usepackage[section]{sty/placeins}
+\usepackage[numbers]{sty/natbib}
+%\usepackage{sty/natbib}
+%\usepackage{sty/citeref} % Page numbers in bibliography
+\usepackage{sty/nomencl}
+\makenomenclature
+%\usepackage{sty/cancel}
+%\usepackage{sty/eqnref}
+
+
+
+%% New commands
+\newcommand{\n}{\noindent}
+\newcommand{\nn}{\nonumber}
+\newcommand{\Rey}{\mathcal{R}e} %only in Math modus
+\newcommand{\Matlab}{\textsf{Matlab\small{$^{\textregistered}$}} }
+\newcommand{\Tecplot}{\textsf{Tecplot\small{$^{\textregistered}$}} }
+\newcommand{\Fluent}{\textsf{Fluent\small{$^{\textregistered}$}} }
+\newcommand{\VK}{Von K\'{a}rm\'{a}n }
+\newcommand{\refps}[1]{Section~\ref{#1} on page \pageref{#1}}
+\newcommand{\partialdiff}[2]{ \frac{\partial {#1}}{\partial {#2}} }
+
+%% Other thesis-specific macros and redefines.
+%\input{defs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Begin Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatter
+    % Title pages
+    \maketitle
+
+    % Preface
+    %\include{Preface}
+
+    % Summary
+    %\include{summary}
+
+    % Table of contents
+    \cleardoublepage
+    \setcounter{tocdepth}{2}    % Only show chapters, sections and subsections. No subsubsection!
+    \tocloflot
+
+    % List of Symbols
+    \printnomenclature
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+\setlength{\abovedisplayskip}{2.5pt}
+\setlength{\belowdisplayskip}{2.5pt}
+    % Introduction
+    %\include{introduction}
+
+    %Chapters
+	\include{chapters/RANS}
+%\include{conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\backmatter
+% Begin on a new page
+    %\cleardoublepage
+
+% Add the bibliography to the table of contents
+    %\addcontentsline{toc}{chapter}{Bibliography}
+
+% Determine bibliography style
+    \bibliographystyle{sty/bib/natbib/plainnat}
+
+% State reference file to use. It is possible to use more files. (separate with comma)
+    \bibliography{bib/macbib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appmatter
+
+\appendix
+
+% include appendices
+%\include{}
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Final page
+\newpage
+    \pagestyle{empty}
+    \mbox{}
+\newpage
+    \pagestyle{empty}
+    \mbox{}
+\AddToShipoutPicture*{\TuPicture{sty/figure/TUD_bies_Achter_A4}}
+
+\end{document}
+
+%%% end

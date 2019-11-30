@@ -1,0 +1,50 @@
+\chapter{Scalar Flux Modelling}
+\label{ch:RANS}
+
+In this chapter, an overview of the theory related to scalar flux and turbulence modelling is discussed. First, background on 
+
+\section{Background on Navier Stokes and scalar fluxes}
+
+Fluid flows are governed by the Navier Stokes equations which can be expressed by equations \ref{eq:NS_momentum} and \ref{eq:NS_mass} for incompressible flow of a Newtonian fluid without body forces. In these equations, $u_{i}$ is the i-th component of the instantaneous velocity field, $p$ is the instantaneous pressure field and $\nu$ is the kinematic viscosity of the fluid. 
+\begin{equation}
+\label{eq:NS_momentum}
+\frac{\partial u_{i}}{\partial t} = u_{j}\frac{\partial u_{i}}{\partial x_{j}} = -\frac{\partial p}{\partial x_{i}} + \nu\frac{\partial^{2} u_{i}}{\partial x_{j}^{2}}
+\end{equation}
+\begin{equation}
+\label{eq:NS_mass}
+\frac{\partial u_{j}}{\partial x_{j}} = 0
+\end{equation}
+Along with these conservation of mass and momentum equations, simulations concerning the transport of a passive scalar quantity $\phi$ require an additional transport equation given in \ref{eq:NS_passive_scalar} without a source term. In equation \ref{eq:NS_passive_scalar}, $\phi$ is considered a passive scalar because it has no effect on material and flow properties and $\Gamma$ is the relevant molecular diffusivity parameter. For simulations concerning passive heat transfer, the instantaneous temperature ($\theta$) can be identified as the scalar quantity with thermal diffusivity $\alpha$ as the relevant diffusivity constant.  
+\begin{equation}
+\label{eq:NS_passive_scalar}
+\frac{\partial \phi}{\partial t} + u_{j}\frac{\partial \phi}{\partial x_{j}} = \Gamma \frac{\partial^{2} \phi}{\partial x_{j}^{2}}
+\end{equation}
+The Navier Stokes equations can be solved exactly by resolving all time and length scales accurately by using a Direct Numerical Simulation (DNS) method. However, the computational effort to accurately resolve all fluid length and time scales for industry relevant flows is made impossible due to turbulence. Turbulence can be characterised as a collection of eddies over a range of different scales which are chaotic and unsteady in nature. The multi-scale properties of these turbulent eddies can be understood based on energy cascade and Kolmogorov's hypothesis for a fully turbulent flow at sufficiently high Reynold's number ($Re$) expressed in equation \ref{eq:Reynolds}, with characteristic velocity $\mathcal{U}$ and length scale $\mathcal{L}$.
+\begin{equation}
+\label{eq:Reynolds}
+Re = \frac{\mathcal{U} \mathcal{L}}{\nu}
+\end{equation}
+The largest eddies in the flow can be characterised with length scale $l_{0}$, characteristic velocity scale $u_{0}$ and time scale $\tau_{0}$ for which the Reynolds number $Re_{0}$ is comparable to the flow $Re$. However, these large eddies are unstable and break-up to transfer energy to smaller eddies which undergo a similarly successive break-up process until a point of sufficiently small eddies with stable motion is reached where molecular viscosity acts to dissipate the kinetic energy of the eddies. According to Kolmogorov's hypothesis, these small scale eddies are statistically isotropic and exhibit universal behaviour that can be determined by $\nu$ and dissipation rate $\epsilon$. Based on unit analysis, the characteristic length $\eta$, velocity $u_{\eta}$ and time $\tau_{\eta}$ scales of these small scale Kolmogorov eddies are identified in equations \ref{eq:kolmogorov_length}-\ref{eq:kolmogorov_time} \cite{Pope2000}. 
+\begin{equation}
+\label{eq:kolmogorov_length}
+\eta = \left(\frac{\nu^{3}}{\epsilon}\right)^{1/4}
+\end{equation}
+\begin{equation}
+\label{eq:kolmogorov_velocity}
+u_{\eta} = (\nu \epsilon)^{1/4}
+\end{equation}
+\begin{equation}
+\label{eq:kolmogorov_time}
+\tau_{\eta} = \left(\frac{\nu}{\epsilon}\right)^{1/2}
+\end{equation}
+The ratio between the largest and smallest turbulent scales can be expressed as a function of flow $Re$ number as expressed in equations \ref{eq:kolmogorov_length_ratio} and \ref{eq:kolmogorov_time_ratio}. As can be identified, the range of turbulent scales increase exponentially with flow Reynolds number. A DNS requires sufficiently small cell size and time step to accurately resolve the smallest eddies along with a suitable computational domain to capture the geometry and large eddies. Therefore, with current computational resources, DNS of industry relevant flows, where $Re$ can be in the order of $10^{6-8}$, is impossible. 
+\begin{equation}
+\label{eq:kolmogorov_length_ratio}
+\frac{\eta}{l_{0}} = Re^{-3/4}
+\end{equation}
+\begin{equation}
+\label{eq:kolmogorov_time_ratio}
+\frac{\tau_{\eta}}{\tau_{0}} = Re^{-1/2}
+\end{equation}
+
+An alternative to DNS is the Large Eddy Simulation (LES) method where only the large energy containing eddies of turbulence are solved for and the smallest eddies are modelled.% 
