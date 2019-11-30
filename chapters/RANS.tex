@@ -14,7 +14,7 @@ Fluid flows are governed by the Navier Stokes equations which can be expressed b
 \label{eq:NS_mass}
 \frac{\partial u_{j}}{\partial x_{j}} = 0
 \end{equation}
-Along with these conservation of mass and momentum equations, simulations concerning the transport of a passive scalar quantity $\phi$ require an additional transport equation given in \ref{eq:NS_passive_scalar} without a source term. In equation \ref{eq:NS_passive_scalar}, $\phi$ is considered a passive scalar because it has no effect on material and flow properties and $\Gamma$ is the relevant molecular diffusivity parameter. For simulations concerning passive heat transfer, the instantaneous temperature ($\theta$) can be identified as the scalar quantity with thermal diffusivity $\alpha$ as the relevant diffusivity constant.  
+Along with these conservation of mass and momentum equations, simulations concerning the transport of a passive scalar quantity $\phi$ require an additional transport equation given in \ref{eq:NS_passive_scalar} without a source term. In equation \ref{eq:NS_passive_scalar}, $\phi$ is considered a passive scalar because it has no effect on material and flow properties and $\Gamma$ is the relevant molecular diffusivity parameter. For simulations concerning passive heat transfer, the instantaneous temperature ($\theta$) can be identified as the scalar quantity with thermal diffusivity $\alpha$ as the relevant diffusivity constant \citep{Leschziner2015}.  
 \begin{equation}
 \label{eq:NS_passive_scalar}
 \frac{\partial \phi}{\partial t} + u_{j}\frac{\partial \phi}{\partial x_{j}} = \Gamma \frac{\partial^{2} \phi}{\partial x_{j}^{2}}
@@ -42,9 +42,14 @@ The ratio between the largest and smallest turbulent scales can be expressed as 
 \label{eq:kolmogorov_length_ratio}
 \frac{\eta}{l_{0}} = Re^{-3/4}
 \end{equation}
-\begin{equation}
+\begin{equation}1
 \label{eq:kolmogorov_time_ratio}
 \frac{\tau_{\eta}}{\tau_{0}} = Re^{-1/2}
 \end{equation}
+An alternative to DNS is the Large Eddy Simulation (LES) method where only the large energy containing eddies of turbulence are solved for and the effect of the small eddies is modelled. The velocity field is decomposed into the resolved component $\widetilde{\bold{u}}$ and unresolved subgrid-scale (SGS) component $\bold{u^{sgs}}$ by using a filtering operation. The resolved component represents the motion of the large eddies for which the Navier Stokes equations are solved. The effect of the smaller scales is represented using the SGS tensor based on closure models that rely on assumptions of universal characteristics of small eddies \cite{Pope2000}.
 
-An alternative to DNS is the Large Eddy Simulation (LES) method where only the large energy containing eddies of turbulence are solved for and the smallest eddies are modelled.% 
+Similar to the velocity field, LES of passive scalar transport involves filtering the scalar $\phi$ into resolved $\widetilde{\phi}$ component and subgrid-scale $\phi^{sgs}$ component. The SGS scalar flux $\sigma_{i}$, given by equation \ref{eq:LES_SGS_scala} is then closed by different models such as eddy diffusivity Smagorinsky model.  
+\begin{equation}
+\label{eq:LES_SGS_scala}
+\sigma_{i} = \widetilde{u_{i}\phi} - \widetilde{u_{i}}\widetilde{\phi}
+\end{equation}   
