@@ -5,10 +5,10 @@ In this chapter, an overview of the theory related to scalar flux and turbulence
 
 \section{Background on Navier Stokes and scalar fluxes}
 
-Fluid flows are governed by the Navier Stokes equations which can be expressed by equations \ref{eq:NS_momentum} and \ref{eq:NS_mass} for incompressible flow of a Newtonian fluid without body forces. In these equations, $u_{i}$ is the i-th component of the instantaneous velocity field, $p$ is the instantaneous pressure field and $\nu$ is the kinematic viscosity of the fluid. 
+Fluid flows are governed by the Navier Stokes equations which can be expressed by equations \ref{eq:NS_momentum} and \ref{eq:NS_mass} for incompressible flow of a Newtonian fluid without body forces. In these equations, $u_{i}$ is the i-th component of the instantaneous velocity field, $p$ is the instantaneous pressure field, $\rho$ is the density and $\nu$ is the kinematic viscosity of the fluid. 
 \begin{equation}
 \label{eq:NS_momentum}
-\frac{\partial u_{i}}{\partial t} = u_{j}\frac{\partial u_{i}}{\partial x_{j}} = -\frac{\partial p}{\partial x_{i}} + \nu\frac{\partial^{2} u_{i}}{\partial x_{j}^{2}}
+\frac{\partial u_{i}}{\partial t} + u_{j}\frac{\partial u_{i}}{\partial x_{j}} = -\frac{1}{\rho}\frac{\partial p}{\partial x_{i}} + \nu\frac{\partial^{2} u_{i}}{\partial x_{j}^{2}}
 \end{equation}
 \begin{equation}
 \label{eq:NS_mass}
@@ -37,7 +37,7 @@ u_{\eta} = (\nu \epsilon)^{1/4}
 \label{eq:kolmogorov_time}
 \tau_{\eta} = \left(\frac{\nu}{\epsilon}\right)^{1/2}
 \end{equation}
-The ratio between the largest and smallest turbulent scales can be expressed as a function of flow $Re$ number as expressed in equations \ref{eq:kolmogorov_length_ratio} and \ref{eq:kolmogorov_time_ratio}. As can be identified, the range of turbulent scales increase exponentially with flow Reynolds number. A DNS requires sufficiently small cell size and time step to accurately resolve the smallest eddies along with a suitable computational domain to capture the geometry and large eddies. Therefore, with current computational resources, DNS of industry relevant flows, where $Re$ can be in the order of $10^{6-8}$, is impossible. 
+The ratio between the largest and smallest turbulent scales can be expressed as a function of flow $Re$ number as expressed in equations \ref{eq:kolmogorov_length_ratio} and \ref{eq:kolmogorov_time_ratio}. As can be identified, the range of turbulent scales increase exponentially with flow Reynolds number. A DNS requires sufficiently small cell size and time step to accurately resolve the smallest eddies along with a suitable computational domain to capture the geometry and large eddies \cite{Pope2000}. Therefore, with current computational resources, DNS of industry relevant flows, where $Re$ can be in the order of $10^{6-8}$, is impossible. 
 \begin{equation}
 \label{eq:kolmogorov_length_ratio}
 \frac{\eta}{l_{0}} = Re^{-3/4}
@@ -46,10 +46,78 @@ The ratio between the largest and smallest turbulent scales can be expressed as 
 \label{eq:kolmogorov_time_ratio}
 \frac{\tau_{\eta}}{\tau_{0}} = Re^{-1/2}
 \end{equation}
-An alternative to DNS is the Large Eddy Simulation (LES) method where only the large energy containing eddies of turbulence are solved for and the effect of the small eddies is modelled. The velocity field is decomposed into the resolved component $\widetilde{\bold{u}}$ and unresolved subgrid-scale (SGS) component $\bold{u^{sgs}}$ by using a filtering operation. The resolved component represents the motion of the large eddies for which the Navier Stokes equations are solved. The effect of the smaller scales is represented using the SGS tensor based on closure models that rely on assumptions of universal characteristics of small eddies \cite{Pope2000}.
+An alternative to DNS is the Large Eddy Simulation (LES) method where only the large energy containing eddies of turbulence are solved for and the effect of the small eddies is modelled. The velocity field is decomposed into the resolved component $\widetilde{\mathbf{u}}$ and unresolved subgrid-scale (SGS) component $\mathbf{u^{sgs}}$ by using a filtering operation. The resolved component represents the motion of the large eddies for which the Navier Stokes equations are solved. The effect of the smaller scales is represented using the SGS tensor based on closure models that rely on assumptions of universal characteristics of small eddies \cite{Pope2000}.
 
-Similar to the velocity field, LES of passive scalar transport involves filtering the scalar $\phi$ into resolved $\widetilde{\phi}$ component and subgrid-scale $\phi^{sgs}$ component. The SGS scalar flux $\sigma_{i}$, given by equation \ref{eq:LES_SGS_scala} is then closed by different models such as eddy diffusivity Smagorinsky model.  
+Similar to the velocity field, LES of passive scalar transport involves filtering the scalar $\phi$ into resolved $\widetilde{\phi}$ component and subgrid-scale $\phi^{sgs}$ component. The SGS scalar flux $\sigma_{i}$, given by equation \ref{eq:LES_SGS_scala} is then closed by different models such as eddy diffusivity Smagorinsky model \cite{Burton2005}.  
 \begin{equation}
 \label{eq:LES_SGS_scala}
 \sigma_{i} = \widetilde{u_{i}\phi} - \widetilde{u_{i}}\widetilde{\phi}
+\end{equation}
+While LES models have grown in use for analysing fluid flows in recent years, they are still computationally intensive for industry relevant flows. Instead, solving the Reynolds Averaged Navier Stokes (RANS) equations is the most widely used method. The RANS equations can be obtained from the NS equations by (Reynolds) decomposing the velocity into a mean quantity $\bar{\mathbf{u}}$ and a fluctuating quantity $\mathbf{u'}$. The mean quantity represents the average value at a point over a fixed time interval. Similar decomposition is applied to the pressure and passive scalar to derive the full-form RANS equations \cite{Rossi2010}.
+\begin{equation}
+\label{eq:RANS_mass}
+\frac{\partial\overline{u}_{j}}{\partial x_{j}} = 0
 \end{equation}   
+\begin{equation}
+\label{eq:RANS_momentum}
+\frac{\partial \overline{u}_{i}}{\partial t} + \overline{u}_{j}\frac{\partial \overline{u}_{i}}{\partial x_{j}} = -\frac{1}{\rho}\frac{\partial \overline{p}}{\partial x_{i}} + \nu \frac{\partial^{2}\overline{u}_{i}}{\partial x_{j}^{2}} - \frac{\partial \overline{u_{i}'u_{j}'}}{\partial x_{j}}  
+\end{equation}
+\begin{equation}
+\label{eq:RANS_scalar}
+\frac{\partial \overline{\phi}}{\partial t} + \overline{u}_{j}\frac{\partial \overline{\phi}}{\partial x_{j}} = \Gamma \frac{\partial^{2} \overline{\phi}}{\partial x_{j}^{2}} - \frac{\partial \overline{u_{j}'\phi'}}{\partial x_{j}}
+\end{equation}
+Equations \ref{eq:RANS_mass}-\ref{eq:RANS_scalar} represent the RANS equations wherein terms $\overline{u_{i}'u_{j}'}$ and $\overline{u_{j}'\phi'}$ represent the Reynolds stress tensor and scalar flux vector, respectively. The Reynold stress tensor $R_{ij}$ represents six additional unknowns (symmetric tensor) that need to be modelled to close the RANS momentum equation. Similarly, the scalar flux vector leads to an additional three unknowns that represent turbulent scalar fluxed that need to be modelled for closure of the passive scalar transport equation (\ref{eq:RANS_scalar}).
+
+As the focus of this thesis is on modelling of the heat transport equation, the scalar flux term is treated as the turbulent heat flux term (THF) for which the $\overline{u_{j}'\theta'}$ notation is adopted. Furthermore, $\Gamma$ is treated as $\alpha$ whereby the thermal diffusivity is defined in equation \ref{eq:thermal_diff}, $Pr$ is the molecular Prandtl number and $\theta$ represents the scalar temperature field. Finally, the focus of the thesis is on steady-state simulations and as such, the time-dependent gradient terms are dropped from the RANS equations for the rest of the report. 
+\begin{equation}
+\label{eq:thermal_diff}
+\alpha = \frac{\nu}{Pr}
+\end{equation}
+\section{Gradient Diffusion Models}
+The most widely adopted method for modelling the THF term is based on the gradient diffusion hypothesis wherein the scalar flux is linearly related to the mean temperature (scalar) gradient as given in equation \ref{eq:GDM_general}. The diffusivity tensor $\epsilon^{jk}_{h}$ represents the most generalised form for these models but is typically reduced to a scalar value \cite{Grotzbach2013}.
+\begin{equation}
+\label{eq:GDM_general}
+\overline{u_{j}'\theta'} = -\epsilon^{jk}_{h}\frac{\partial\overline{\theta}}{\partial x_{k}}
+\end{equation}
+%\subsubsection{Standard Gradient Diffusion Hypothesis}
+As mentioned, the most widely adopted gradient diffusion model assumes a singular scalar value to relate the THF to the mean scalar gradient called the gradient diffusion hypothesis (GDH). The underlying assumption of the GDH is that the turbulent transport of the scalar flux is down to the mean scalar gradient in the direction of $-\nabla \cdot \phi$ related with the turbulent diffusivity term $\alpha_{t}$ analogous to Fourier's law of heat conduction (\cite{Pope2000}). The GDH assumes isotropic turbulence wherein the THF is assumed to be aligned with the mean temperature gradient. A further simplification is also typically employed in the GDH model based on the Reynolds analogy that assumes a similarity between turbulent momentum exchange and turbulent heat transfer (\cite{Bartosiewicz2019}) described in equation \ref{eq:GDH_RA}. 
+\begin{equation}
+\label{eq:GDH_RA}
+\overline{u_{j}' \theta'} = -\alpha_{t} \frac{\partial \overline{\theta}}{\partial x_{j}} = \frac{Pr_{t}}{\nu_{t}}  \frac{\partial \overline{\theta}}{\partial x_{j}} 
+\end{equation}
+In equation \ref{eq:GDH_RA}, $Pr_{t}$ represents the turbulent Prandtl number and $\nu_{t}$ is the turbulent eddy viscosity. $Pr_{t}$ can be characterised as a function of the turbulent shear stress, the turbulent heat flux, the velocity gradient and the temperature gradient (\cite{Kays1994}). Based on these quantities, numerous experimental studies have been performed to obtain empirical relations for the $Pr_{t}$ number.
+
+\noindent The simplest model proposed by Reynolds assumes that heat and momentum are transferred by the same processes, and as such values of $\nu_{t}$ and $\alpha_{t}$ are the same leading to turbulent Prandtl number of unity (\cite{Cebeci1973}). Kays (\cite{Kays1994}) showed that such an assumption of a constant turbulent Prandtl number holds true for the unique case of turbulent flow over a flat plate (zero streamwise pressure gradient) and that a constant $Pr_{t} \approx 0.85$  number can be obtained based on curve fitting of the 'log-law' region of the thermal boundary layer. However, Kays also acknowledged the numerous limitation of applying this model for more complicated flow fields. Results from \cite{Blackwell1972} and \cite{Roganov1984}, evaluating the effect of pressure gradient on $Pr_{t}$, show that a favourable pressure gradient leads to an increase in $Pr_{t}$ and an adverse pressure gradient leads to a decrease. Furthermore, Kays stated that the constant $Pr_{t}$ only captures the log-law region of the thermal boundary layer but doesn't hold true for the sublayer and the 'wake' region at the outer edge of the thermal boundary layer. Instead, in the wake region, the $Pr_{t}$ tends to decrease to 0.5-0.7 which represents the limitation of the model away from the wall. Alternatively, in the near-wall sublayer, empirical evidence shows a substantial increase in $Pr_{t}$ (\cite{Yoder2016}). Kays also acknowledged that such a relation only holds true for moderate to high $Pr$ number where molecular diffusivity is negligible in comparison to turbulent diffusivity.
+
+\noindent To overcome these limitations, various algebraic equations have been proposed to calculate $Pr_{t}$ analogous to the zero equation mixing length models for the closure of Reynolds stress tensor. A modification made to the constant $Pr_{t}$ number was made by Jenkins who introduced the dependence of $Pr_{t}$ on molecular $Pr$. Jenkins proposed a model based on heat conducting in or out of a turbulent eddy traversing orthogonal to the mean flow and proposed a relation based on the normalised turbulent eddy viscosity $\nu_{t}^{+} = \frac{\nu_{t}}{\nu}$ and the $Pr$ number. The Jenkins model showed good correlation with low to moderate $Pr$ experimental flows but required additional factors for better correlation with empirical data at higher Prandtl number ($Pr = 0.7$) (\cite{Cebeci1973}).
+
+\noindent Cebeci (\cite{Cebeci1973}) proposed a model for a wall-distance based turbulent Prandtl number inspired by Van Driest modelling of the viscous sublayer for Stokes flow and Prandtl's mixing length theory. The proposed model is defined by equation \ref{eq:Cebeci} and specified wall $Pr_{t}$ prescribed by equation \ref{eq:Cebeci_wall}. In equation \ref{eq:Cebeci}, expression for $k_{m}$, $k_{h}$, $A$ and $B$ are proposed based on analytical and experimental observations. In particular, expressions for $k_{m}$ are based on Prandtl's mixing length concept for turbulent shear stress and value for $A$ is empirically derived based on flat plate turbulent boundary layer data. Similarly, $k_{h}$ and $B$ are based on turbulent thermal boundary layer properties for incompressible flat plate flow.
+\begin{equation}
+    \label{eq:Cebeci}
+    Pr_{t} = \frac{k_{m}}{k_{h}}\frac{1-e^{-y/A}}{1-e^{-y/B}}
+\end{equation}
+\begin{equation}
+    \label{eq:Cebeci_wall}
+    Pr_{t} = \frac{k_{m}}{k_{h}}\frac{B}{A} = \frac{k_{m}}{k_{h}}\frac{B^{+}}{A^{A+}}
+\end{equation}
+Yokhot et al. \cite{Yakhot1987} presented an analytical solution for the $Pr_{t}$ based on the renormalisation group method to describe the process of heat transfer in turbulent pipe flow. They deduced a dependence of $Pr_{t}$ on molecular $Pr$ and the ratio $\frac{\nu_{t}}{\nu}$ and showed it's applicability to a wide range of $Pr$ numbers where $Pr_{t}$ converges to $0.85$ for high values of $\frac{\nu_{t}}{\nu}$ (\cite{Srinivasan2011}). Further advancements in the modelling of the turbulent Prandtl number were proposed by \cite{Kays1993}. With a modification introduced by \cite{Weigand1997},  the extended formulation for the $Pr_{t}$ was given in relation with the turbulent Peclet number ($Pe_{t}$) given in equation \ref{eq:Kays_model} where $Pr_{t,\infty}$ is given by expression \ref{eq:Kays_infty}. Furthermore, the $Pe_{t}$ number is defined by equation \ref{eq:Peclet} and constants C and D have values 0.31 and 100, respectively \cite{Srinivasan2011}. 
+\begin{equation}
+    \label{eq:Kays_model}
+    Pr_{t} = \frac{1}{\frac{1}{2 Pr_{t,\infty}} + C Pe_{t}\sqrt{\frac{1}{Pr_{t,\infty}}} - (C Pe_{t})^{2}\left(1-e^{\frac{-1}{C Pe_{t}\sqrt{Pr_{t,\infty}}}} \right)}
+\end{equation}
+\begin{equation}
+    \label{eq:Kays_infty}
+    Pr_{t,\infty} = 0.85 + \frac{D}{Pr Re^{0.888}}
+\end{equation}    
+\begin{equation}
+    \label{eq:Peclet}
+    Pe_{t} = Pr\frac{\nu_{t}}{\nu}
+\end{equation}
+While these mixing length models improve the modelling of $Pr_{t}$ for simple wall bounded flows, they are still poor for complex wall-free flows like scalar mixing due to jets. Furthermore, these models fail to account for transport phenomena like temperature fluctuations being transported from one area to another independent of the quality of locally modelled $Pr_{t}$ \citep{Grotzbach2007}.
+
+Instead, one or two equation models can be adopted which solve additional transport equations to obtain turbulent thermal timescales to derive the appropriate turbulent diffusivity $\alpha_{t}$. For turbulent heat transport, typically transport equations for thermal variance $\overline{\theta'^{2}}$ and thermal dissipation rate $\epsilon_{theta}$ are solved.
+\begin{equation}
+\frac{\mathcal{D} \overline{\theta'^{2}}}{\mathcal{D} t}
+\end{equation}
+
+
