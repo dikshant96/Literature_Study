@@ -48,9 +48,9 @@ The ratio between the largest and smallest turbulent scales can be expressed as 
 \end{equation}
 An alternative to DNS is the Large Eddy Simulation (LES) method where only the large energy containing eddies of turbulence are solved for and the effect of the small eddies is modelled. The velocity field is decomposed into the resolved component $\widetilde{\mathbf{u}}$ and unresolved subgrid-scale (SGS) component $\mathbf{u^{sgs}}$ by using a filtering operation. The resolved component represents the motion of the large eddies for which the Navier Stokes equations are solved. The effect of the smaller scales is represented using the SGS tensor based on closure models that rely on assumptions of universal characteristics of small eddies \cite{Pope2000}.
 
-Similar to the velocity field, LES of passive scalar transport involves filtering the scalar $\phi$ into resolved $\widetilde{\phi}$ component and subgrid-scale $\phi^{sgs}$ component. The SGS scalar flux $\sigma_{i}$, given by equation \ref{eq:LES_SGS_scala} is then closed by different models such as eddy diffusivity Smagorinsky model \cite{Burton2005}.  
+Similar to the velocity field, LES of passive scalar transport involves filtering the scalar $\phi$ into resolved $\widetilde{\phi}$ component and subgrid-scale $\phi^{sgs}$ component. The SGS scalar flux $\sigma_{i}$, given by equation \ref{eq:LES_SGS_scalar} is then closed by different models such as eddy diffusivity Smagorinsky model \cite{Burton2005}.  
 \begin{equation}
-\label{eq:LES_SGS_scala}
+\label{eq:LES_SGS_scalar}
 \sigma_{i} = \widetilde{u_{i}\phi} - \widetilde{u_{i}}\widetilde{\phi}
 \end{equation}
 While LES models have grown in use for analysing fluid flows in recent years, they are still computationally intensive for industry relevant flows. Instead, solving the Reynolds Averaged Navier Stokes (RANS) equations is the most widely used method. The RANS equations can be obtained from the NS equations by (Reynolds) decomposing the velocity into a mean quantity $\bar{\mathbf{u}}$ and a fluctuating quantity $\mathbf{u'}$. The mean quantity represents the average value at a point over a fixed time interval. Similar decomposition is applied to the pressure and passive scalar to derive the full-form RANS equations \cite{Rossi2010}.
@@ -68,22 +68,22 @@ While LES models have grown in use for analysing fluid flows in recent years, th
 \end{equation}
 Equations \ref{eq:RANS_mass}-\ref{eq:RANS_scalar} represent the RANS equations wherein terms $\overline{u_{i}'u_{j}'}$ and $\overline{u_{j}'\phi'}$ represent the Reynolds stress tensor and scalar flux vector, respectively. The Reynold stress tensor $R_{ij}$ represents six additional unknowns (symmetric tensor) that need to be modelled to close the RANS momentum equation. Similarly, the scalar flux vector leads to an additional three unknowns that represent turbulent scalar fluxed that need to be modelled for closure of the passive scalar transport equation (\ref{eq:RANS_scalar}).
 
-As the focus of this thesis is on modelling of the heat transport equation, the scalar flux term is treated as the turbulent heat flux term (THF) for which the $\overline{u_{j}'\theta'}$ notation is adopted. Furthermore, $\Gamma$ is treated as $\alpha$ whereby the thermal diffusivity is defined in equation \ref{eq:thermal_diff}, $Pr$ is the molecular Prandtl number and $\theta$ represents the scalar temperature field. Finally, the focus of the thesis is on steady-state simulations and as such, the time-dependent gradient terms are dropped from the RANS equations for the rest of the report. 
+As the focus of this thesis is on modelling of the heat transport equation, the scalar flux term is treated as the turbulent heat flux term (THF) for which the $\overline{u_{i}'\theta'}$ notation is adopted. Furthermore, $\Gamma$ is treated as $\alpha$ whereby the thermal diffusivity is defined in equation \ref{eq:thermal_diff}, $Pr$ is the molecular Prandtl number and $\theta$ represents the scalar temperature field. Finally, the focus of the thesis is on steady-state simulations and as such, the time-dependent gradient terms are dropped from the RANS equations for the rest of the report. 
 \begin{equation}
 \label{eq:thermal_diff}
 \alpha = \frac{\nu}{Pr}
 \end{equation}
 \section{Gradient Diffusion Models}
-The most widely adopted method for modelling the THF term is based on the gradient diffusion hypothesis wherein the scalar flux is linearly related to the mean temperature (scalar) gradient as given in equation \ref{eq:GDM_general}. The diffusivity tensor $\epsilon^{jk}_{h}$ represents the most generalised form for these models but is typically reduced to a scalar value \cite{Grotzbach2013}.
+The most widely adopted method for modelling the THF term is based on the gradient diffusion hypothesis wherein the scalar flux is linearly related to the mean temperature (scalar) gradient as given in equation \ref{eq:GDM_general}. The diffusivity tensor $\epsilon^{ij}_{h}$ represents the most generalised form for these models but is typically reduced to a scalar value \cite{Grotzbach2013}.
 \begin{equation}
 \label{eq:GDM_general}
-\overline{u_{j}'\theta'} = -\epsilon^{jk}_{h}\frac{\partial\overline{\theta}}{\partial x_{k}}
+\overline{u_{i}'\theta'} = -\epsilon^{ij}_{h}\frac{\partial\overline{\theta}}{\partial x_{i}}
 \end{equation}
 %\subsubsection{Standard Gradient Diffusion Hypothesis}
 As mentioned, the most widely adopted gradient diffusion model assumes a singular scalar value to relate the THF to the mean scalar gradient called the gradient diffusion hypothesis (GDH). The underlying assumption of the GDH is that the turbulent transport of the scalar flux is down to the mean scalar gradient in the direction of $-\nabla \cdot \phi$ related with the turbulent diffusivity term $\alpha_{t}$ analogous to Fourier's law of heat conduction (\cite{Pope2000}). The GDH assumes isotropic turbulence wherein the THF is assumed to be aligned with the mean temperature gradient. A further simplification is also typically employed in the GDH model based on the Reynolds analogy that assumes a similarity between turbulent momentum exchange and turbulent heat transfer (\cite{Bartosiewicz2019}) described in equation \ref{eq:GDH_RA}. 
 \begin{equation}
 \label{eq:GDH_RA}
-\overline{u_{j}' \theta'} = -\alpha_{t} \frac{\partial \overline{\theta}}{\partial x_{j}} = \frac{Pr_{t}}{\nu_{t}}  \frac{\partial \overline{\theta}}{\partial x_{j}} 
+\overline{u_{i}' \theta'} = -\alpha_{t} \frac{\partial \overline{\theta}}{\partial x_{j}} = \frac{Pr_{t}}{\nu_{t}}  \frac{\partial \overline{\theta}}{\partial x_{j}} 
 \end{equation}
 In equation \ref{eq:GDH_RA}, $Pr_{t}$ represents the turbulent Prandtl number and $\nu_{t}$ is the turbulent eddy viscosity. $Pr_{t}$ can be characterised as a function of the turbulent shear stress, the turbulent heat flux, the velocity gradient and the temperature gradient (\cite{Kays1994}). Based on these quantities, numerous experimental studies have been performed to obtain empirical relations for the $Pr_{t}$ number.
 
@@ -115,9 +115,14 @@ Yokhot et al. \cite{Yakhot1987} presented an analytical solution for the $Pr_{t}
 \end{equation}
 While these mixing length models improve the modelling of $Pr_{t}$ for simple wall bounded flows, they are still poor for complex wall-free flows like scalar mixing due to jets. Furthermore, these models fail to account for transport phenomena like temperature fluctuations being transported from one area to another independent of the quality of locally modelled $Pr_{t}$ \citep{Grotzbach2007}.
 
-Instead, one or two equation models can be adopted which solve additional transport equations to obtain turbulent thermal timescales to derive the appropriate turbulent diffusivity $\alpha_{t}$. For turbulent heat transport, typically transport equations for thermal variance $\overline{\theta'^{2}}$ and thermal dissipation rate $\epsilon_{theta}$ are solved.
+Instead, one or two equation models can be adopted which solve additional transport equations to obtain turbulent thermal timescales to derive the appropriate turbulent diffusivity $\alpha_{t}$. For turbulent heat transport, typically transport equations for thermal variance $\overline{\theta'^{2}}$ and thermal dissipation rate $\epsilon_{\theta}$ are solved \citep{Yoder2016}.
 \begin{equation}
-\frac{\mathcal{D} \overline{\theta'^{2}}}{\mathcal{D} t}
+\label{eq:scalar_variance_transport}
+\frac{\mathcal{D} \overline{\theta'^{2}}}{\mathcal{D} t} = -\mathcal{P_{\theta}} - \epsilon_{\theta} - \mathcal{T_{\theta}} + \mathcal{D_{\theta}}
 \end{equation}
-
+Equation \ref{eq:scalar_variance_transport} refers to the transport equation for thermal variance $\overline{\theta'^{2}} \equiv 2k_{\theta}$. The left hand side term represents the advection of scalar variance represented using substantial derivative $\frac{\mathcal{D} ()}{\mathcal{D} t} = \frac{\partial ()}{\partial t} + u_{j}\frac{\partial ()}{\partial x_{j}}$. The production term $\mathcal{P_{\theta}}$ given in equation \ref{eq:scalar_variance_production} is determined directly from the scalar transport equation.  
+\begin{equation}
+\label{eq:scalar_variance_production}
+\mathcal{P_{\theta}} = 2\overline{u_{j}'\theta'}\frac{\partial \overline{\theta}}{\partial x_{j}}
+\end{equation}
 
