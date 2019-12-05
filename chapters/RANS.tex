@@ -80,7 +80,7 @@ The most widely adopted method for modelling the THF term is based on the gradie
 \overline{u_{i}'\theta'} = -\epsilon^{ij}_{h}\frac{\partial\overline{\theta}}{\partial x_{i}}
 \end{equation}
 %\subsubsection{Standard Gradient Diffusion Hypothesis}
-As mentioned, the most widely adopted gradient diffusion model assumes a singular scalar value to relate the THF to the mean scalar gradient called the gradient diffusion hypothesis (GDH). The underlying assumption of the GDH is that the turbulent transport of the scalar flux is down to the mean scalar gradient in the direction of $-\nabla \cdot \phi$ related with the turbulent diffusivity term $\alpha_{t}$ analogous to Fourier's law of heat conduction (\cite{Pope2000}). The GDH assumes isotropic turbulence wherein the THF is assumed to be aligned with the mean temperature gradient. A further simplification is also typically employed in the GDH model based on the Reynolds analogy that assumes a similarity between turbulent momentum exchange and turbulent heat transfer (\cite{Bartosiewicz2019}) described in equation \ref{eq:GDH_RA}. 
+As mentioned, the most widely adopted gradient diffusion model assumes a singular scalar value to relate the THF to the mean scalar gradient called the gradient diffusion hypothesis (GDH). The underlying assumption of the GDH is that the turbulent transport of the scalar flux is down to the mean scalar gradient in the direction of $-\nabla \cdot \phi$ related with the turbulent diffusivity term $\alpha_{t}$ analogous to Fourier's law of heat conduction (\cite{Pope2000}) which implies isotropic turbulence. A further simplification is also typically employed in the GDH model based on the Reynolds analogy that assumes a similarity between turbulent momentum exchange and turbulent heat transfer (\cite{Bartosiewicz2019}) described in equation \ref{eq:GDH_RA}. 
 \begin{equation}
 \label{eq:GDH_RA}
 \overline{u_{i}' \theta'} = -\alpha_{t} \frac{\partial \overline{\theta}}{\partial x_{j}} = \frac{Pr_{t}}{\nu_{t}}  \frac{\partial \overline{\theta}}{\partial x_{j}} 
@@ -120,9 +120,26 @@ Instead, one or two equation models can be adopted which solve additional transp
 \label{eq:scalar_variance_transport}
 \frac{\mathcal{D} \overline{\theta'^{2}}}{\mathcal{D} t} = -\mathcal{P_{\theta}} - \epsilon_{\theta} - \mathcal{T_{\theta}} + \mathcal{D_{\theta}}
 \end{equation}
-Equation \ref{eq:scalar_variance_transport} refers to the transport equation for thermal variance $\overline{\theta'^{2}} \equiv 2k_{\theta}$. The left hand side term represents the advection of scalar variance represented using substantial derivative $\frac{\mathcal{D} ()}{\mathcal{D} t} = \frac{\partial ()}{\partial t} + u_{j}\frac{\partial ()}{\partial x_{j}}$. The production term $\mathcal{P_{\theta}}$ given in equation \ref{eq:scalar_variance_production} is determined directly from the scalar transport equation.  
+Equation \ref{eq:scalar_variance_transport} refers to the transport equation for thermal variance $\overline{\theta'^{2}} \equiv 2k_{\theta}$. The left hand side term represents the advection of scalar variance represented using substantial derivative $\frac{\mathcal{D} ()}{\mathcal{D} t} = \frac{\partial ()}{\partial t} + u_{j}\frac{\partial ()}{\partial x_{j}}$. The production term $\mathcal{P_{\theta}}$ given in equation \ref{eq:scalar_variance_production} is determined directly from the scalar transport equation. The turbulent diffusion represented by $\mathcal{T_{\theta}}$ is given in equation \ref{eq:scalar_variance_tdiffusion} where $\overline{u_{j}'\theta'^{2}}$ introduces three additional unknowns that require a closure model. The scalar variance diffusion is defined by $\mathcal{D_{\theta}}$ given in equation \ref{eq:scalar_variance_diffusion}. Finally, the dissipation $\epsilon_{\theta}$ term is given in equation \ref{eq:scalar_variance_dissipation} which also introduces additional unknowns in the scalar variance transport equation \cite{Leschziner2015}.
 \begin{equation}
 \label{eq:scalar_variance_production}
-\mathcal{P_{\theta}} = 2\overline{u_{j}'\theta'}\frac{\partial \overline{\theta}}{\partial x_{j}}
+\mathcal{P_{\theta}} = 2\overline{u_{i}'\theta'}\frac{\partial \overline{\theta}}{\partial x_{i}}
 \end{equation}
-
+\begin{equation}
+\label{eq:scalar_variance_tdiffusion}
+\mathcal{T_{\theta}} = \frac{\partial \overline{u_{j}'\theta'^{2}} }{\partial x_{j}}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_variance_diffusion}
+\mathcal{D_{\theta}} = \alpha\frac{\partial^{2} \overline{\theta'^{2}}}{\partial x_{j}^{2} }
+\end{equation}
+\begin{equation}
+\label{eq:scalar_variance_dissipation}
+\epsilon_{\theta} = \alpha \overline{\frac{\partial \theta'}{\partial x_{j}}\frac{\partial \theta'}{\partial x_{j}}}
+\end{equation}
+As mentioned, the closure of the transport equation for $\overline{\theta'^{2}}$ requires modelling of the triple correlation terms introduced due to $\mathcal{T_{\theta}}$ and the dissipation $\epsilon_{\theta}$. The turbulent diffusion is typically modelled as a turbulent transport term modelled using a gradient transport form given in equation \ref{eq:scalar_variance_turbulent_diffusion}. 
+\begin{equation}
+\label{eq:scalar_variance_turbulent_diffusion}
+\mathcal{T_{\theta}} = c_{\theta^{2}}\frac{\partial}{\partial x_{k}}\left(\frac{k}{\epsilon}\overline{u_{k}'u_{j}'}\frac{\partial \overline{\theta'^{2}}}{\partial x_{j}}\right)
+\end{equation} 
+For modelling the thermal variance dissipation, either a full transport equation for $\epsilon_{theta}$ is solved or an algebraic formulation based on a time scale ratio $R$ is introduced given in equation. 
