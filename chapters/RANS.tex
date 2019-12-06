@@ -117,7 +117,12 @@ While these mixing length models improve the modelling of $Pr_{t}$ for simple wa
 
 \subsubsection{Scalar variance models}
 
-Instead, one or two equation models can be adopted which solve additional transport equations to obtain turbulent thermal timescales to derive the appropriate turbulent diffusivity $\alpha_{t}$. For turbulent heat transport, typically transport equations for thermal variance $k_{\theta} =\frac{\overline{\theta'^{2}}}{2}$ and thermal dissipation rate $\epsilon_{\theta}$ are solved \cite{Launder2001}.
+Instead, one or two equation models can be adopted which solve additional transport equations to obtain turbulent thermal timescales to derive the appropriate turbulent diffusivity $\alpha_{t}$ as represented in equation \ref{eq:scalar_variance_alphat}. $\tau_{m}$ represents a hybrid time-scale which is a function of scalar time-scale for temperature fluctuation $\tau_{\theta}$ and dynamic time-scale for turbulent eddies $\tau_{u} = \frac{k}{\epsilon}$. 
+\begin{equation}
+\label{eq:scalar_variance_alphat}
+\alpha_{t} = C_{\lambda}f_{\lambda}\tau_{m}
+\end{equation}
+For turbulent heat transport, typically transport equations for thermal variance $k_{\theta} =\frac{\overline{\theta'^{2}}}{2}$ and thermal dissipation rate $\epsilon_{\theta}$ are solved \cite{Launder2001}. The thermal time-scale is resolved as $\tau_{\theta} = \frac{k_{\theta}}{\epsilon_{\theta}}$. 
 \begin{equation}
 \label{eq:scalar_variance_transport}
 \frac{\mathcal{D} k_{\theta}}{\mathcal{D} t} = D_{k_{\theta}} + \mathcal{T}_{k_{\theta}} + \mathcal{P}_{k_{\theta}} - \epsilon_{\theta}
@@ -139,11 +144,21 @@ D_{k_{\theta}} = \alpha\frac{\partial^{2} k_{\theta}}{\partial x_{j}^{2} }
 \label{eq:scalar_variance_dissipation}
 \epsilon_{\theta} = \alpha \overline{\frac{\partial \theta'}{\partial x_{j}}\frac{\partial \theta'}{\partial x_{j}}}
 \end{equation}
-The triple correlation term in $\mathcal{T}_{k_{\theta}}$ (eq:\ref{eq:scalar_variance_tdiffusion}) and Reynolds averaging of fluctuating scalar field in $\epsilon_{\theta}$ (eq:\ref{eq:scalar_variance_dissipation}) introduce additional unknowns that need to be modelled for the closure of the transport equation of $k_{\theta}$. The turbulent diffusion term is typically approximated based on a gradient transport model which in a typical one or two equation model is given in equation \ref{eq:scalar_variance_turbulent_diffusion}. However, some models 
+The triple correlation term in $\mathcal{T}_{k_{\theta}}$ (eq:\ref{eq:scalar_variance_tdiffusion}) and Reynolds averaging of fluctuating scalar field in $\epsilon_{\theta}$ (eq:\ref{eq:scalar_variance_dissipation}) introduce additional unknowns that need to be modelled for the closure of the transport equation of $k_{\theta}$. The turbulent diffusion term is typically approximated based on a gradient transport model which in a typical one or two equation model is given in equation \ref{eq:scalar_variance_turbulent_diffusion} \cite{Launder2001} \cite{Yoder2016}. For a second order closure model, the turbulent diffusion accounts for anisotropic turbulence by incorporating the resolved $R_{ij}$ tensor as given in equation \ref{eq:scalar_variance_turbulent_diffusion_higher} \cite{Leschziner2015}. 
 \begin{equation}
 \label{eq:scalar_variance_turbulent_diffusion}
 \mathcal{T}_{k_{\theta}} = \frac{\partial}{\partial x_{j}}\left(\frac{\alpha_{t}}{\sigma_{\theta}} \frac{\partial k_{\theta}}{\partial x_{j}}\right)
 \end{equation}
-
-
-%For modelling the thermal variance dissipation, either a full transport equation for $\epsilon_{theta}$ is solved or an algebraic formulation based on a time scale ratio $R$ is introduced given in equation. 
+\begin{equation}
+\label{eq:scalar_variance_turbulent_diffusion_higher}
+\mathcal{T}_{k_{\theta}} = C_{k_{\theta}}\frac{\partial}{\partial x_{j}}\left(\frac{k}{\epsilon} \overline{u_{i}'u_{j}'} \frac{\partial k_{\theta}}{\partial x_{j}}\right)
+\end{equation}
+For modelling the thermal variance dissipation, either a full transport equation for $\epsilon_{theta}$ is solved or an algebraic formulation based on a time scale ratio $R$. Based on the assumption that the ratio of thermal and dynamic time-scales is constant given in equation \ref{eq:scalar_timescale_ratio}, a simple algebraic expression for $\epsilon_{\theta}$ is proposed given in equation \ref{eq:scalar_dissipation_algebraic}. Typically, a constant value of $R = 0.5$ is assumed \cite{Leschziner2015}. 
+\begin{equation}
+\label{eq:scalar_timescale_ratio}
+R = \frac{\tau_{\theta}}{\tau_{u}}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_dissipation_algebraic}
+\epsilon_{\theta} = \frac{\epsilon}{R}\frac{k_{\theta}}{k} 
+\end{equation}
