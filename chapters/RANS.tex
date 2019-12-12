@@ -42,7 +42,7 @@ The ratio between the largest and smallest turbulent scales can be expressed as 
 \label{eq:kolmogorov_length_ratio}
 \frac{\eta}{l_{0}} = Re^{-3/4}
 \end{equation}
-\begin{equation}1
+\begin{equation}
 \label{eq:kolmogorov_time_ratio}
 \frac{\tau_{\eta}}{\tau_{0}} = Re^{-1/2}
 \end{equation}
@@ -153,7 +153,7 @@ The triple correlation term in $\mathcal{T}_{k_{\theta}}$ (eq:\ref{eq:scalar_var
 \label{eq:scalar_variance_turbulent_diffusion_higher}
 \mathcal{T}_{k_{\theta}} = C_{k_{\theta}}\frac{\partial}{\partial x_{j}}\left(\frac{k}{\epsilon} \overline{u_{i}'u_{j}'} \frac{\partial k_{\theta}}{\partial x_{j}}\right)
 \end{equation}
-For modelling the thermal variance dissipation, either a full transport equation for $\epsilon_{\theta}$ is solved or an algebraic formulation based on a time scale ratio $R$ given in equation \ref{eq:scalar_timescale_ratio}. Based on the assumption that the ratio of thermal and dynamic time-scales is constant in an equilibrium boundary layer, a simple algebraic expression for $\epsilon_{\theta}$ is proposed given in equation \ref{eq:scalar_dissipation_algebraic}. Typically, a constant value of $R = 0.5$ is assumed \cite{Leschziner2015}. However, the assumption of a constant time scale ratio through the whole domain doesn't hold true for even simple shear flows as shown by the DNS of passive scalar transport for turbulent channel flows \cite{Johansson2000} where $R$ deviates significantly near-wall and at the channel centre. Furthermore, specifying wall and algebraic models for $R$ can be as difficult as specifying $Pr_{t}$ itself \cite{Grotzbach2007} specially in flows where $Pr$ differs from unity. 
+For modelling the thermal variance dissipation, either a full transport equation for $\epsilon_{\theta}$ is solved or an algebraic formulation based on a time scale ratio $R$ given in equation \ref{eq:scalar_timescale_ratio}. Based on the assumption that the ratio of thermal and dynamic time-scales is constant in an equilibrium boundary layer, a simple algebraic expression for $\epsilon_{\theta}$ is proposed given in equation \ref{eq:scalar_dissipation_algebraic}. Typically, a constant value of $R = 0.5$ is assumed \cite{Leschziner2015}. However, the assumption of a constant time scale ratio through the whole domain doesn't hold true for even simple shear flows as shown by the DNS of passive scalar transport for turbulent channel flows \cite{Johansson2000} where $R$ deviates significantly near-wall and at the channel centre. Furthermore, specifying wall and algebraic models for $R$ can be as difficult as specifying $Pr_{t}$ itself specially in flows where $Pr$ differs from unity \cite{Grotzbach2007}. 
 \begin{equation}
 \label{eq:scalar_timescale_ratio}
 R = \frac{\tau_{\theta}}{\tau_{u}}
@@ -162,7 +162,7 @@ R = \frac{\tau_{\theta}}{\tau_{u}}
 \label{eq:scalar_dissipation_algebraic}
 \epsilon_{\theta} = \frac{\epsilon}{R}\frac{k_{\theta}}{k} 
 \end{equation}
-To overcome the limitation of the constant time-scale ratio, a transport equation for $\epsilon_{\theta}$ can be directly solved for given in equation \ref{eq:scalar_dissipation_transport}. The transport equation for $\epsilon_{\theta}$ has a similar structure to that of $k_{\theta}$ where $D_{\epsilon_{\theta}}$ and $\mathcal{T}_{\epsilon_{\theta}}$ represent the molecular and turbulent diffusion of $\epsilon_{\theta}$. The equations for these terms has the same form as equations \ref{eq:scalar_variance_diffusion} and \ref{eq:scalar_variance_tdiffusion}, respectively wherein $k_{\theta}$ can be replaced by $\epsilon_{\theta}$. The $\mathcal{P}_{\epsilon_{\theta}}^{1}$ - $\mathcal{P}_{\epsilon_{\theta}}^{4}$ represent the production terms. $\mathcal{P}_{\epsilon_{\theta}}^{1}$ represents production due to mean scalar gradient as shown in equation \ref{eq:scalar_dissipation_production1}. Similarly, 
+To overcome the limitation of the constant time-scale ratio, a transport equation for $\epsilon_{\theta}$ can be directly solved for given in equation \ref{eq:scalar_dissipation_transport}. The transport equation for $\epsilon_{\theta}$ has a similar structure to that of $k_{\theta}$ where $D_{\epsilon_{\theta}}$ and $\mathcal{T}_{\epsilon_{\theta}}$ represent the molecular and turbulent diffusion of $\epsilon_{\theta}$. The equations for these terms has the same form as equations \ref{eq:scalar_variance_diffusion} and \ref{eq:scalar_variance_tdiffusion}, respectively wherein $k_{\theta}$ can be replaced by $\epsilon_{\theta}$. The $\mathcal{P}_{\epsilon_{\theta}}^{1}$ - $\mathcal{P}_{\epsilon_{\theta}}^{4}$ represent the production terms. $\mathcal{P}_{\epsilon_{\theta}}^{1}$ represents production due to mean scalar gradient as shown in equation \ref{eq:scalar_dissipation_production1}. Similarly, $\mathcal{P}_{\epsilon_{\theta}}^{2}$ represents production due to mean velocity gradient represented in equation \ref{eq:scalar_dissipation_production2}. The other production terms, $\mathcal{P}_{\epsilon_{\theta}}^{3}$ and $\mathcal{P}_{\epsilon_{\theta}}^{4}$ represent the gradient and turbulent production, respectively shown in equations \ref{eq:scalar_dissipation_production3} and \ref{eq:scalar_dissipation_production4}. Finally, $\Upsilon_{\epsilon_{\theta}}$ represents the destruction term given in equation \ref{eq:scalar_dissipation_destruction} \cite{Nagano2001}. 
 \begin{equation}
 \label{eq:scalar_dissipation_transport}
 \frac{\mathcal{D} \epsilon_{\theta}}{\mathcal{D} t} = D_{\epsilon_{\theta}} + \mathcal{T}_{\epsilon_{\theta}} + \mathcal{P}_{\epsilon_{\theta}}^{1} + \mathcal{P}_{\epsilon_{\theta}}^{2} + \mathcal{P}_{\epsilon_{\theta}}^{3} + \mathcal{P}_{\epsilon_{\theta}}^{4} - \Upsilon_{\epsilon_{\theta}}
@@ -171,3 +171,30 @@ To overcome the limitation of the constant time-scale ratio, a transport equatio
 \label{eq:scalar_dissipation_production1}
 \mathcal{P}_{\epsilon_{\theta}}^{1} = -2\alpha\overline{\frac{\partial u_{j}'}{\partial x_{k}}\frac{\partial \theta'}{\partial x_{k}}}\frac{\partial \overline{\theta}}{\partial x_{j}}
 \end{equation}
+\begin{equation}
+\label{eq:scalar_dissipation_production2}
+\mathcal{P}_{\epsilon_{\theta}}^{2} = -2\alpha\overline{\frac{\partial \theta'}{\partial x_{k}}\frac{\partial \theta'}{\partial x_{j}}}\frac{\partial \overline{u_{j}}}{\partial x_{k}}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_dissipation_production3}
+\mathcal{P}_{\epsilon_{\theta}}^{3} = -2\alpha\overline{u_{j}\frac{\partial \theta'}{\partial x_{k}}} \frac{\partial^{2} \overline{\theta}}{\partial x_{j} \partial x_{k}}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_dissipation_production4}
+\mathcal{P}_{\epsilon_{\theta}}^{4} = -2\alpha\overline{\frac{\partial u_{j}'}{\partial x_{k}}\frac{\partial \theta'}{\partial x_{k}} \frac{\partial \theta'}{\partial x_{j}}}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_dissipation_destruction}
+\Upsilon_{\epsilon_{\theta}} = 2\alpha^{2}\overline{\left(\frac{\partial^{2} \theta'}{\partial x_{k} \partial x_{j}}\right)^{2}}
+\end{equation}
+The transport of $\epsilon_{\theta}$ introduces additional knowns that need to be modelled for the closure of equation \ref{eq:scalar_dissipation_transport}. Numerous scalar variance and dissipation models have been proposed that provide a complete model for the $k_{\theta}$ and $\epsilon_{\theta}$ equations along with equations for the hybrid time-scale $\tau_{m}$ \cite{Yoder2016}. 
+
+One of the early scalar variance models was proposed by Nagano and Kim \cite{Nagano1988}, wherein the hybrid time-scale is modelled as $\tau_{m} = \sqrt{\tau_{\theta}\tau_{u}} = \tau_{u}\sqrt{2R}$. The turbulent diffusion terms for both scalar variance and dissipation is modelled based on gradient-diffusion models similar to the form of equation \ref{eq:scalar_variance_turbulent_diffusion}. The $\mathcal{P}_{\epsilon_{\theta}}^{1}$, $\mathcal{P}_{\epsilon_{\theta}}^{2}$, $\mathcal{P}_{\epsilon_{\theta}}^{4}$ and $\Upsilon_{\epsilon_{\theta}}$ are modelled together based on a linear combination of mean flow gradients and time-scale rations given in equation \ref{eq:AK_scalar_production}. 
+\begin{equation}
+\label{eq:AK_scalar_production}
+\begin{aligned}
+\mathcal{P}_{\epsilon_{\theta}}^{1} + \mathcal{P}_{\epsilon_{\theta}}^{2} + \mathcal{P}_{\epsilon_{\theta}}^{4} + \Upsilon_{\epsilon_{\theta}} = {} & -C_{P1}f_{P1}\frac{2\epsilon_{\theta}}{k_{\theta}}\overline{u_{j}'\theta'}\frac{\partial \overline{\theta}}{\partial x_{j}} - C_{P2}f_{P2}\frac{\epsilon_{\theta}}{k}\overline{u_{i}'u_{j}'}\frac{\partial \overline{u_{i}}}{\partial x_{j}} \\
+&- C_{D1}f_{D1}\frac{2\epsilon_{\theta}^{2}}{k_{\theta}} - C_{D2}f_{D2}\frac{\epsilon \epsilon_{\theta}}{k}
+\end{aligned}
+\end{equation}
+ 
