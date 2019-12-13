@@ -189,7 +189,7 @@ To overcome the limitation of the constant time-scale ratio, a transport equatio
 \end{equation}
 The transport of $\epsilon_{\theta}$ introduces additional knowns that need to be modelled for the closure of equation \ref{eq:scalar_dissipation_transport}. Numerous scalar variance and dissipation models have been proposed that provide a complete model for the $k_{\theta}$ and $\epsilon_{\theta}$ equations along with equations for the hybrid time-scale $\tau_{m}$ \cite{Yoder2016}. 
 
-One of the early scalar variance models was proposed by Nagano and Kim \cite{Nagano1988}, wherein the hybrid time-scale is modelled as $\tau_{m} = \sqrt{\tau_{\theta}\tau_{u}} = \tau_{u}\sqrt{2R}$. The turbulent diffusion terms for both scalar variance and dissipation is modelled based on gradient-diffusion models similar to the form of equation \ref{eq:scalar_variance_turbulent_diffusion}. The $\mathcal{P}_{\epsilon_{\theta}}^{1}$, $\mathcal{P}_{\epsilon_{\theta}}^{2}$, $\mathcal{P}_{\epsilon_{\theta}}^{4}$ and $\Upsilon_{\epsilon_{\theta}}$ are modelled together based on a linear combination of mean flow gradients and time-scale rations given in equation \ref{eq:AK_scalar_production}. 
+One of the early scalar variance models was proposed by Nagano and Kim \cite{Nagano1988} (NK model), wherein the hybrid time-scale is modelled as $\tau_{m} = \sqrt{\tau_{\theta}\tau_{u}} = \tau_{u}\sqrt{2R}$. The turbulent diffusion terms for both scalar variance and dissipation is modelled based on gradient-diffusion models similar to the form of equation \ref{eq:scalar_variance_turbulent_diffusion}. The $\mathcal{P}_{\epsilon_{\theta}}^{1}$, $\mathcal{P}_{\epsilon_{\theta}}^{2}$, $\mathcal{P}_{\epsilon_{\theta}}^{4}$ and $\Upsilon_{\epsilon_{\theta}}$ are modelled together based on a linear combination of mean flow gradients and time-scale ratios given in equation \ref{eq:AK_scalar_production}. 
 \begin{equation}
 \label{eq:AK_scalar_production}
 \begin{aligned}
@@ -197,3 +197,11 @@ One of the early scalar variance models was proposed by Nagano and Kim \cite{Nag
 &- C_{D1}f_{D1}\frac{2\epsilon_{\theta}^{2}}{k_{\theta}} - C_{D2}f_{D2}\frac{\epsilon \epsilon_{\theta}}{k}
 \end{aligned}
 \end{equation}
+For the remaining gradient production $\mathcal{P}_{\epsilon_{\theta}}^{3}$, an approximation given in equation \ref{eq:AK_scalar_production2} is proposed with $\alpha_{t}$ defined by equation \ref{eq:scalar_variance_alphat}. The model function $f_{\lambda}$ along with individual model function terms in equation \ref{eq:AK_scalar_production} are introduced to model wall proximity effects and the model coefficients are optimised for the case of homogeneous scalar turbulence.  
+\begin{equation}
+\label{eq:AK_scalar_production2}
+\mathcal{P}_{\epsilon_{\theta}}^{3} = \alpha\alpha_{t}\left(1-f_{\lambda}\right)\left(\frac{\partial^{2} \overline{\theta}}{\partial x_{j} \partial x_{k}}\right)^{2}
+\end{equation}
+The NK model showed improvements over the GDH models specially in cases like thermal entry region of a pipe where the Reynold's analogy doesn't hold true and $Pr_{t}$ varies significantly \cite{Nagano1988}. However, further studies highlighted the limitation of the model for cases with varying wall temperature \cite{Yoder2016} as the $\tau_{m}$ time-scale, which characterises large scale motion fails, is applied adjacent to walls where small scale dissipation is more dominant \cite{Nagano1996}. 
+
+Therefore, model improvements have been proposed that aim to better capture near-wall turbulence characteristics by altering the function for $\tau_{m}$ or adding damping functions. Nagano et al. \cite{Nagano1991} proposed a new ratio for time-scale $\tau_{m} = \tau_{u}(2R)^{2}$ and added damping functions to improve near wall characteristics. Such a formulation allows for high variation in $\tau_{m}$ for a given time-scale ratio $R$ and thus, allows for smaller hybrid time-scale if the $\tau_{\theta}$ and $\tau_{u}$ time-scales are modelled accurately. Abe et al. introduced the widely adopted AKN model which introduces a new relation for $\tau_{m} = \frac{2}{\frac{1}{\tau_{u}} + \frac{0.5}{\tau_{\theta}}}$ based on a harmonic average. 
