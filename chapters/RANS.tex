@@ -210,7 +210,7 @@ While one or two equation scalar variance models have shown to improve heat tran
 
 \section{Algebraic scalar flux models}
 
-An alternative approach to the gradient-diffusion models is based on solving three transport equations for the scalar flux itself. The exact transport equation for THF in symbolic form is represented in equation \ref{eq:scalar_transport}. In equation \ref{eq:scalar_transport}, the $\mathcal{P}_{i\theta}$ represents the production term which can be obtained exactly from equation \ref{eq:scalar_transport_production}. The $\Pi_{i\theta}$ represents the pressure-temperature gradient correlation given by equation \ref{eq:scalar_transport_ptcorr}. The $\epsilon_{i\theta}$ term represents dissipation given in equation \ref{eq:scalar_transport_dissipation}. Finally, the term $D_{i\theta}$ represents the combined viscous diffusion, turbulent transport and pressure transport as given in equation \ref{eq:scalar_transport_diffusion} \cite{Qiu2008}. 
+An alternative approach to the gradient-diffusion models are algebraic scalar flux or Algebraic heat flux (AHF) models which are derived from the full second order transport equations of the scalar fluxes. The exact transport equation for THF in symbolic form is represented in equation \ref{eq:scalar_transport}. In equation \ref{eq:scalar_transport}, the $\mathcal{P}_{i\theta}$ represents the production term which can be obtained exactly from equation \ref{eq:scalar_transport_production}. The $\Pi_{i\theta}$ represents the pressure-temperature gradient correlation given by equation \ref{eq:scalar_transport_ptcorr}. The $\epsilon_{i\theta}$ term represents dissipation given in equation \ref{eq:scalar_transport_dissipation}. Finally, the term $D_{i\theta}$ represents the combined viscous diffusion, turbulent transport and pressure transport as given in equation \ref{eq:scalar_transport_diffusion} \cite{Qiu2008}. The $\Pi_{i\theta}$, $\epsilon_{i\theta}$ and $D_{i\theta}$ terms all introduce additional higher order terms that require modelling to close the full second order tranport equation for scalar fluxes. 
 \begin{equation}
 \label{eq:scalar_transport}
 \frac{\mathcal{D}\overline{u_{i}'\theta'}}{\mathcal{D}t} = \mathcal{P}_{i\theta} + \Pi_{i\theta} - \epsilon_{i\theta} + D_{i\theta}
@@ -221,7 +221,7 @@ An alternative approach to the gradient-diffusion models is based on solving thr
 \end{equation}
 \begin{equation}
 \label{eq:scalar_transport_ptcorr}
-\Pi_{i\theta} = \overline{\frac{p}{\rho}\frac{\partial \theta'}{\partial x_{i}}}
+\Pi_{i\theta} = \overline{\frac{p'}{\rho}\frac{\partial \theta'}{\partial x_{i}}}
 \end{equation}
 \begin{equation}
 \label{eq:scalar_transport_dissipation}
@@ -229,6 +229,6 @@ An alternative approach to the gradient-diffusion models is based on solving thr
 \end{equation}
 \begin{equation}
 \label{eq:scalar_transport_diffusion}
-D_{i\theta} = \frac{\partial}{\partial x_{j}}\left(\alpha\overline{\frac{\partial \theta'}{\partial x_{j}}u_{i}'} + \nu\overline{\theta'\frac{\partial u_{i}'}{\partial x_{j}}} \right) - \frac{\partial \overline{\theta'u_{i}'u_{j}'}}{\partial x_{j}} - \frac{1}{\rho}\frac{\partial \overline{\theta'p}}{\partial x_{i}}
+D_{i\theta} = \frac{\partial}{\partial x_{j}}\left(\alpha\overline{\frac{\partial \theta'}{\partial x_{j}}u_{i}'} + \nu\overline{\theta'\frac{\partial u_{i}'}{\partial x_{j}}} \right) - \frac{\partial \overline{\theta'u_{i}'u_{j}'}}{\partial x_{j}} - \frac{1}{\rho}\frac{\partial \overline{\theta'p'}}{\partial x_{i}}
 \end{equation}
-The $\Pi_{i\theta}$, $\epsilon_{i\theta}$ and $D_{i\theta}$ terms all introduce additional higher order terms that require modelling to close the full second order tranport equation for scalar fluxes eq:\ref{eq:scalar_transport}. 
+Of the highlighted terms in equation \ref{eq:scalar_transport}, the $\Pi_{i\theta}$ is identified as an important agent in transport of the scalar fluxes as it is found to reduce the scalar flux \cite{Rogers1989} and primarily balances scalar production $\mathcal{P}_{i\theta}$ \cite{Rossi2009}.   
