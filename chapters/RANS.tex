@@ -73,7 +73,7 @@ As the focus of this thesis is on modelling of the heat transport equation, the 
 \label{eq:thermal_diff}
 \alpha = \frac{\nu}{Pr}
 \end{equation}
-\section{Gradient Diffusion Models}
+\section{Gradient diffusion models}
 The most widely adopted method for modelling the THF term is based on the gradient diffusion hypothesis wherein the scalar flux is linearly related to the mean temperature (scalar) gradient as given in equation \ref{eq:GDM_general}. The diffusivity tensor $\epsilon^{ij}_{h}$ represents the most generalised form for these models but is typically reduced to a scalar value \cite{Grotzbach2013}.
 \begin{equation}
 \label{eq:GDM_general}
@@ -204,5 +204,31 @@ For the remaining gradient production $\mathcal{P}_{\epsilon_{\theta}}^{3}$, an 
 \end{equation}
 The NK model showed improvements over the GDH models specially in cases like thermal entry region of a pipe where the Reynold's analogy doesn't hold true and $Pr_{t}$ varies significantly \cite{Nagano1988}. However, further studies highlighted the limitation of the model for cases with varying wall temperature \cite{Yoder2016} as the $\tau_{m}$ time-scale, which characterises large scale motion, is applied adjacent to walls where small scale dissipation is more dominant \cite{Nagano1996}. 
 
-Therefore, model improvements have been proposed that aim to better capture near-wall turbulence characteristics by altering the function for $\tau_{m}$ or adding damping functions. Nagano et al. \cite{Nagano1991} proposed a new ratio for time-scale $\tau_{m} = \tau_{u}(2R)^{2}$ and added damping functions to improve near wall characteristics. Such a formulation allows for high variation in $\tau_{m}$ for a given time-scale ratio $R$ and thus, allows for smaller hybrid time-scale if the $\tau_{\theta}$ and $\tau_{u}$ time-scales are modelled accurately. Abe et al. \cite{Abe1995} introduced the widely adopted AKN model which introduces a new relation for $\tau_{m} = \frac{2}{\frac{1}{\tau_{u}} + \frac{0.5}{\tau_{\theta}}}$ based on a harmonic average of thermal and dynamic time-scales such that the shorter time-scale is more weighted. The AKN model also introduces a new normalisation factor $u_{\epsilon} \equiv \left(\nu \epsilon\right)^{1/4}$ instead of the friction velocity $u_{\tau}$ which becomes zero at points of separation and attachment. Equation 
+Therefore, model improvements have been proposed that aim to better capture near-wall turbulence characteristics by altering the function for $\tau_{m}$ or adding damping functions. Nagano et al. \cite{Nagano1991} proposed a new ratio for time-scale $\tau_{m} = \tau_{u}(2R)^{2}$ and added damping functions to improve near wall characteristics. Such a formulation allows for high variation in $\tau_{m}$ for a given time-scale ratio $R$ and thus, allows for smaller hybrid time-scale if the $\tau_{\theta}$ and $\tau_{u}$ time-scales are modelled accurately. Abe et al. \cite{Abe1995} introduced the widely adopted AKN model which introduces a new relation for $\tau_{m} = \frac{2}{\frac{1}{\tau_{u}} + \frac{0.5}{\tau_{\theta}}}$ based on a harmonic average of thermal and dynamic time-scales such that the shorter time-scale is more weighted. The AKN model also introduces a new normalisation factor $u_{\epsilon} \equiv \left(\nu \epsilon\right)^{1/4}$ instead of the friction velocity $u_{\tau}$ to avoid singularities at points of separation and attachment. Abe et al. \cite{Abe1995} showed the improvements in predicting heat tranfer using the AKN model for the case of heat transfer downstream of a backward facing step. The AKN model improved the prediction of $Pr_{t}$ specially in recirculation regions downstream of the step where $Pr_{t}$ varies significantly and cannot be captured by algebraic $Pr_{t}$ log-laws.
 
+While one or two equation scalar variance models have shown to improve heat transfer modelling, these models are still limited by the underlying assumptions of the GDH model. These models do not address either the assumption of isotropic diffusivity or the assumption of alignment between mean scalar gradient and the scalar flux vector.  
+
+\section{Algebraic scalar flux models}
+
+An alternative approach to the gradient-diffusion models are algebraic scalar flux or Algebraic heat flux (AHF) models which are derived from the full second order transport equations of the scalar fluxes. The exact transport equation for THF in symbolic form is represented in equation \ref{eq:scalar_transport}. In equation \ref{eq:scalar_transport}, the $\mathcal{P}_{i\theta}$ represents the production term which can be obtained exactly from equation \ref{eq:scalar_transport_production}. The $\Pi_{i\theta}$ represents the pressure-temperature gradient correlation given by equation \ref{eq:scalar_transport_ptcorr}. The $\epsilon_{i\theta}$ term represents dissipation given in equation \ref{eq:scalar_transport_dissipation}. Finally, the term $D_{i\theta}$ represents the combined viscous diffusion, turbulent transport and pressure transport as given in equation \ref{eq:scalar_transport_diffusion} \cite{Qiu2008}. The $\Pi_{i\theta}$, $\epsilon_{i\theta}$ and $D_{i\theta}$ terms all introduce additional higher order terms that require modelling to close the full second order tranport equation for scalar fluxes. 
+\begin{equation}
+\label{eq:scalar_transport}
+\frac{\mathcal{D}\overline{u_{i}'\theta'}}{\mathcal{D}t} = \mathcal{P}_{i\theta} + \Pi_{i\theta} - \epsilon_{i\theta} + D_{i\theta}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_transport_production}
+\mathcal{P}_{i\theta} = -\left(\overline{u_{j}'\theta'}\frac{\partial \overline{u_{i}}}{\partial x_{j}} + \overline{u_{i}'u_{j}'}\frac{\partial \overline{\theta}}{\partial x_{j}}\right)
+\end{equation}
+\begin{equation}
+\label{eq:scalar_transport_ptcorr}
+\Pi_{i\theta} = \overline{\frac{p'}{\rho}\frac{\partial \theta'}{\partial x_{i}}}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_transport_dissipation}
+\epsilon_{i\theta} = (\alpha + \nu)\overline{\frac{\partial \theta'}{\partial x_{j}} \frac{\partial u_{i}'}{\partial x_{j}}}
+\end{equation}
+\begin{equation}
+\label{eq:scalar_transport_diffusion}
+D_{i\theta} = \frac{\partial}{\partial x_{j}}\left(\alpha\overline{\frac{\partial \theta'}{\partial x_{j}}u_{i}'} + \nu\overline{\theta'\frac{\partial u_{i}'}{\partial x_{j}}} \right) - \frac{\partial \overline{\theta'u_{i}'u_{j}'}}{\partial x_{j}} - \frac{1}{\rho}\frac{\partial \overline{\theta'p'}}{\partial x_{i}}
+\end{equation}
+Of the highlighted terms in equation \ref{eq:scalar_transport}, the $\Pi_{i\theta}$ is identified as an important agent in transport of the scalar fluxes as it is found to reduce the scalar flux \cite{Rogers1989} and primarily balances scalar production $\mathcal{P}_{i\theta}$ \cite{Rossi2009}.   
