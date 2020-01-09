@@ -236,4 +236,11 @@ Of the highlighted terms in equation \ref{eq:scalar_transport}, the $\Pi_{i\thet
 \label{eq:pressure_scalar_slow}
 \pi_{i\theta,1} = -C_{1\theta}\frac{\epsilon}{k}\overline{u_{i}'\theta'}
 \end{equation}      
-Launder extended the model by including modelling of the 'rapid' part which captures the interaction of fluctuating quantities with mean velocity gradient \cite{Wikstrom1998} 
+Launder \cite{Launder1975} extended the model by including modelling of the 'rapid' part which captures the interaction of fluctuating quantities with mean velocity gradient \cite{Wikstrom1998}. The proposed model is represented by equation \ref{eq:pressure_scalar_rapid}. In this equation, the $\tau$ represents the hybrid time-scale accounting for both the dynamical and thermal time-scales. 
+\begin{equation}
+\label{eq:pressure_scalar_rapid}
+\Pi_{i\theta} = -c_{\theta1}\frac{1}{\tau}\overline{u_{i}'\theta'} + c_{\theta2}\overline{u_{j}'\theta'}\frac{\partial \overline{u_{i}}}{\partial x_{j}}
+\end{equation}
+However, Launder's piecewise approach to modelling the pressure-gradient scalar correlation leads to an omission of dependence on $\overline{u_{i}'u_{j}'}$ and $\frac{\partial \overline{\theta}}{\partial x_{j}}$ from the model which are highlighted key terms in counter-balancing $\mathcal{P}_{i\theta}$ term \cite{Younis2005}. Rogers et al. \cite{Rogers1989} highlighted that splitting the $\Pi_{i\theta}$ term into a 'slow' and 'rapid' part as per Launder's model leads to misalignment between pressure-scalar gradient correlation and scalar flux vector and different expressions for the diffusivity tensor $\epsilon_{h}^{ij}$ than those derived for the case of homogeneous turbulent shear flow. Further models have been proposed for modelling the $\Pi_{i\theta}$ by either modelling the 'slow' and 'rapid' parts together as proposed by Jones et al. \cite{Jones1988} or introducing additional terms in modelling of the 'slow' part as proposed by Craft et al. \cite{Craft1989}. However, both of these models introduce additional expressions that introduce complexity and computational overhead for the solution of the full transport equations. 
+
+For modelling the $\epsilon_{i\theta}$ and $D_{i\theta}$ terms in equation \ref{eq:scalar_transport}, other assumptions are invoked. The dissipation term ($\epsilon_{i\theta}$) is zero for isotropic turbulence and is also employed otherwise under the assumption of local isotropy for high $Re$ flows \cite{Younis2005} \cite{Wikstrom1998} \cite{Combest2011}. 
