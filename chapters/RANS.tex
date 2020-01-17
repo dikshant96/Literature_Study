@@ -219,6 +219,11 @@ However, the GGDH model fails to model the correct magnitude of turbulent scalar
 \label{eq:hoggdh}
 \overline{u_{i}'\theta'} = -C_{\theta}'\frac{k}{\epsilon}\left(\frac{\overline{u_{i}'u_{k}'}}{k} \overline{u_{k}'u_{j}'}\right)\frac{\overline{\theta}}{x_{j}}
 \end{equation}
+Another form of anisotropic gradient diffusion model was proposed by Launder, the WET model wherein the scalar fluxes are assumed to be proportional to their rates of production as given in equation \ref{eq:wet}
+\begin{equation}
+\label{eq:wet}
+\overline{u_{i}'\theta'} = -C_{\theta}\frac{k}{\epsilon}\left(\overline{u_{j}'u_{i}'}\frac{\partial \overline{\theta}}{\partial x_{j}} + \overline{u_{j}'\theta'}\frac{\partial \overline{u_{i}}}{\partial x_{j}} \right)
+\end{equation} 
 
 \section{Turbulent heat flux models}
 
